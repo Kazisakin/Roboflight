@@ -5,26 +5,9 @@ import { useInView } from "@/hooks/useInView";
 
 const plans = [
   {
-    name: "Basic Robotics",
-    price: 150,
-    featured: false,
-    icon: (
-      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18" />
-      </svg>
-    ),
-    features: [
-      "1 Session per week",
-      "Robotics Fundamentals",
-      "Build Robot Car",
-      "Training Kit Provided",
-      "Expert Instruction",
-    ],
-  },
-  {
     name: "Quadcopter Drone",
     price: 250,
-    featured: true,
+    featured: false,
     icon: (
       <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
@@ -37,6 +20,23 @@ const plans = [
       "Training Kit Provided",
       "Expert Instruction",
       "Take Home Your Drone",
+    ],
+  },
+  {
+    name: "Basic Robotics",
+    price: 150,
+    featured: true,
+    icon: (
+      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18" />
+      </svg>
+    ),
+    features: [
+      "1 Session per week",
+      "Robotics Fundamentals",
+      "Build Robot Car",
+      "Training Kit Provided",
+      "Expert Instruction",
     ],
   },
   {
