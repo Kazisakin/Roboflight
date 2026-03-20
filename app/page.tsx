@@ -12,10 +12,12 @@ import CTA from "@/components/CTA";
 import Testimonials from "@/components/Testimonials";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import AdmissionPopup from "@/components/AdmissionPopup";
 
 export default function Home() {
   return (
     <main className="overflow-x-hidden">
+      <AdmissionPopup />
       <Navbar />
       <Hero />
       <Stats />
