@@ -53,33 +53,23 @@ export default function Testimonials() {
   const t = testimonials[active];
 
   return (
-    <section className="py-24 relative overflow-hidden bg-blue-950">
-      {/* Background image with opacity */}
+    <section className="py-16 sm:py-24 relative overflow-hidden bg-blue-950">
       <div className="absolute inset-0">
-        <Image
-          src="/gallery-2.jpg"
-          alt="Kids learning robotics"
-          fill
-          className="object-cover object-center"
-          sizes="100vw"
-          quality={80}
-        />
-        {/* Dark blue overlay */}
+        <Image src="/gallery-2.jpg" alt="Kids learning robotics" fill className="object-cover object-center" sizes="100vw" quality={80} />
         <div className="absolute inset-0 bg-blue-950/85" />
       </div>
 
-      {/* Glow blobs on top of overlay */}
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-600/15 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
 
       <div ref={ref} className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6">
         {/* Header */}
-        <div className={`text-center mb-16 transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+        <div className={`text-center mb-10 sm:mb-16 transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-white/10 border border-white/15 text-cyan-300 rounded-full text-xs font-semibold tracking-widest uppercase mb-4">
             <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
             Testimonials
           </span>
-          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4 tracking-tight">
+          <h2 className="text-2xl sm:text-3xl sm:text-4xl font-bold text-white mb-4 tracking-tight">
             What people are <span className="text-cyan-400">saying</span>
           </h2>
           <p className="text-blue-300 text-sm max-w-md mx-auto leading-relaxed">
@@ -90,17 +80,16 @@ export default function Testimonials() {
         {/* Main card */}
         <div className={`transition-all duration-700 delay-100 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <div className={`transition-all duration-300 ${fading ? "opacity-0 scale-[0.98]" : "opacity-100 scale-100"}`}>
-            <div className="relative bg-white/10 border border-white/15 rounded-3xl p-8 sm:p-12 backdrop-blur-md overflow-hidden">
-              {/* Large quote mark */}
-              <div className="absolute top-6 right-8 text-[120px] leading-none text-white/5 font-serif select-none">&ldquo;</div>
+            <div className="relative bg-white/10 border border-white/15 rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-12 backdrop-blur-md overflow-hidden">
+              <div className="absolute top-4 right-6 sm:top-6 sm:right-8 text-[80px] sm:text-[120px] leading-none text-white/5 font-serif select-none">&ldquo;</div>
 
-              <div className="grid grid-cols-1 lg:grid-cols-[auto_1fr] gap-8 items-start">
-                {/* Avatar column */}
-                <div className="flex flex-row lg:flex-col items-center lg:items-start gap-4 lg:gap-3">
-                  <div className="relative w-16 h-16 lg:w-20 lg:h-20 rounded-2xl overflow-hidden flex-shrink-0 bg-blue-800 ring-2 ring-white/20">
+              <div className="grid grid-cols-1 lg:grid-cols-[auto_1fr] gap-6 sm:gap-8 items-start">
+                {/* Avatar */}
+                <div className="flex flex-row lg:flex-col items-center lg:items-start gap-3 lg:gap-3">
+                  <div className="relative w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 rounded-2xl overflow-hidden flex-shrink-0 bg-blue-800 ring-2 ring-white/20">
                     <Image src={t.image} alt={t.name} fill className="object-cover" sizes="80px" />
                   </div>
-                  <div className="lg:mt-1">
+                  <div>
                     <p className="text-white font-semibold text-sm">{t.name}</p>
                     <p className="text-cyan-400 text-xs font-medium">{t.role}</p>
                     <p className="text-blue-400 text-xs mt-0.5">{t.school}</p>
@@ -114,8 +103,7 @@ export default function Testimonials() {
                   </div>
                 </div>
 
-                {/* Quote */}
-                <blockquote className="text-white/80 text-base sm:text-lg leading-relaxed font-light italic relative z-10">
+                <blockquote className="text-white/80 text-sm sm:text-base lg:text-lg leading-relaxed font-light italic relative z-10">
                   &ldquo;{t.quote}&rdquo;
                 </blockquote>
               </div>
@@ -123,14 +111,10 @@ export default function Testimonials() {
           </div>
 
           {/* Controls */}
-          <div className="flex items-center justify-between mt-8">
+          <div className="flex items-center justify-between mt-6 sm:mt-8">
             <div className="flex items-center gap-2">
               {testimonials.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => goTo(i)}
-                  className={`rounded-full transition-all duration-300 cursor-pointer ${i === active ? "w-8 h-2 bg-cyan-400" : "w-2 h-2 bg-white/25 hover:bg-white/50"}`}
-                />
+                <button key={i} onClick={() => goTo(i)} className={`rounded-full transition-all duration-300 cursor-pointer ${i === active ? "w-8 h-2 bg-cyan-400" : "w-2 h-2 bg-white/25 hover:bg-white/50"}`} />
               ))}
             </div>
             <div className="flex gap-2">
@@ -147,24 +131,24 @@ export default function Testimonials() {
             </div>
           </div>
 
-          {/* Thumbnail row */}
-          <div className="grid grid-cols-3 gap-4 mt-8">
+          {/* Thumbnail row — hidden on small mobile, shown sm+ */}
+          <div className="hidden sm:grid grid-cols-3 gap-3 sm:gap-4 mt-6 sm:mt-8">
             {testimonials.map((item, i) => (
               <button
                 key={item.name}
                 onClick={() => goTo(i)}
-                className={`text-left p-4 rounded-2xl border transition-all duration-300 cursor-pointer backdrop-blur-sm ${i === active ? "border-cyan-400/40 bg-cyan-400/10" : "border-white/10 bg-white/5 hover:border-white/20 hover:bg-white/10"}`}
+                className={`text-left p-3 sm:p-4 rounded-xl sm:rounded-2xl border transition-all duration-300 cursor-pointer backdrop-blur-sm ${i === active ? "border-cyan-400/40 bg-cyan-400/10" : "border-white/10 bg-white/5 hover:border-white/20 hover:bg-white/10"}`}
               >
-                <div className="flex items-center gap-2.5 mb-2">
-                  <div className="relative w-7 h-7 rounded-lg overflow-hidden bg-blue-800 flex-shrink-0">
+                <div className="flex items-center gap-2 mb-1.5 sm:mb-2">
+                  <div className="relative w-6 h-6 sm:w-7 sm:h-7 rounded-lg overflow-hidden bg-blue-800 flex-shrink-0">
                     <Image src={item.image} alt={item.name} fill className="object-cover" sizes="28px" />
                   </div>
                   <div>
-                    <p className={`text-xs font-semibold ${i === active ? "text-white" : "text-white/60"}`}>{item.name}</p>
-                    <p className="text-[10px] text-blue-400">{item.role}</p>
+                    <p className={`text-[10px] sm:text-xs font-semibold ${i === active ? "text-white" : "text-white/60"}`}>{item.name}</p>
+                    <p className="text-[9px] sm:text-[10px] text-blue-400">{item.role}</p>
                   </div>
                 </div>
-                <p className="text-white/40 text-[11px] leading-relaxed line-clamp-2">{item.quote}</p>
+                <p className="text-white/40 text-[10px] sm:text-[11px] leading-relaxed line-clamp-2">{item.quote}</p>
               </button>
             ))}
           </div>

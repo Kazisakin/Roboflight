@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node \"c:/Users/kazim/OneDrive/Desktop/GIT/Roboflight/scripts/mobile.js\")",
+      "Bash(node \"c:/Users/kazim/OneDrive/Desktop/GIT/Roboflight/scripts/minimal.js\")",
+      "Bash(node \"c:/Users/kazim/OneDrive/Desktop/GIT/Roboflight/scripts/build-page.js\")",
+      "Bash(node \"c:/Users/kazim/OneDrive/Desktop/GIT/Roboflight/scripts/build-page3.js\")",
+      "Bash(node \"c:/Users/kazim/OneDrive/Desktop/GIT/Roboflight/scripts/build-page4.js\")",
+      "Bash(node \"c:/Users/kazim/OneDrive/Desktop/GIT/Roboflight/scripts/build-page5.js\")",
+      "Bash(node \"c:/Users/kazim/OneDrive/Desktop/GIT/Roboflight/scripts/build-page6.js\")"
+    ]
+  }
+}

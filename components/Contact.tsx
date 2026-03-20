@@ -12,9 +12,9 @@ interface FormData {
 }
 
 const courseOptions = [
-  { id: "basic-robotics",   label: "Basic Robotics",     icon: "⚙" },
-  { id: "quadcopter-drone", label: "Quadcopter Drone",   icon: "✦" },
-  { id: "rc-plane",         label: "RC Plane Making",    icon: "▲" },
+  { id: "basic-robotics",   label: "Basic Robotics",   icon: "⚙" },
+  { id: "quadcopter-drone", label: "Quadcopter Drone", icon: "✦" },
+  { id: "rc-plane",         label: "RC Plane Making",  icon: "▲" },
 ];
 
 const info = [
@@ -95,19 +95,17 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-24 bg-white relative overflow-hidden">
-      {/* Subtle pattern */}
+    <section id="contact" className="py-16 sm:py-24 bg-white relative overflow-hidden">
       <div className="absolute inset-0 opacity-[0.025]" style={{ backgroundImage: "radial-gradient(#1e40af 1px, transparent 1px)", backgroundSize: "32px 32px" }} />
       <div className="absolute top-0 right-0 w-96 h-96 bg-blue-50 rounded-full translate-x-1/2 -translate-y-1/2 blur-3xl pointer-events-none" />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
-        {/* Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-10 sm:mb-16">
           <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-blue-50 border border-blue-100 text-blue-600 rounded-full text-xs font-semibold tracking-widest uppercase mb-4">
             <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
             Get In Touch
           </span>
-          <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4 tracking-tight">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-4 tracking-tight">
             Enrol your child <span className="text-blue-600">today</span>
           </h2>
           <p className="text-slate-400 text-sm max-w-md mx-auto leading-relaxed">
@@ -115,13 +113,10 @@ export default function Contact() {
           </p>
         </div>
 
-        <div
-          ref={ref}
-          className="grid grid-cols-1 lg:grid-cols-5 gap-10 items-start"
-        >
-          {/* Left info panel */}
+        <div ref={ref} className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-10 items-start">
+          {/* Info panel */}
           <div className={`lg:col-span-2 transition-all duration-700 ${isInView ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10"}`}>
-            <div className="space-y-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-3">
               {info.map((item) => (
                 <div key={item.label} className="flex items-start gap-4 p-4 bg-slate-50 rounded-2xl border border-slate-100 hover:border-blue-100 transition-colors">
                   <div className="w-9 h-9 bg-blue-600 rounded-xl flex items-center justify-center text-white flex-shrink-0">
@@ -135,26 +130,25 @@ export default function Contact() {
               ))}
             </div>
 
-            {/* Trust note */}
-            <div className="mt-6 p-5 bg-blue-600 rounded-2xl text-white">
+            <div className="mt-4 sm:mt-6 p-4 sm:p-5 bg-blue-600 rounded-2xl text-white">
               <div className="flex items-start gap-3">
                 <svg className="w-5 h-5 text-cyan-300 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                 </svg>
                 <div>
                   <p className="font-semibold text-sm mb-1">Safe & Secure</p>
-                  <p className="text-blue-200 text-xs leading-relaxed">Your personal information is kept private and never shared with third parties. We follow Canadian privacy law (PIPEDA).</p>
+                  <p className="text-blue-200 text-xs leading-relaxed">Your personal information is kept private and never shared. We follow Canadian privacy law (PIPEDA).</p>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Right form */}
+          {/* Form */}
           <div className={`lg:col-span-3 transition-all duration-700 delay-150 ${isInView ? "opacity-100 translate-x-0" : "opacity-0 translate-x-10"}`}>
-            <div className="bg-white rounded-3xl border border-slate-100 shadow-xl shadow-slate-100 p-8">
+            <div className="bg-white rounded-3xl border border-slate-100 shadow-xl shadow-slate-100 p-5 sm:p-8">
 
               {status === "success" && (
-                <div className="mb-8 p-5 bg-emerald-50 border border-emerald-200 rounded-2xl flex items-start gap-4">
+                <div className="mb-6 p-4 sm:p-5 bg-emerald-50 border border-emerald-200 rounded-2xl flex items-start gap-4">
                   <div className="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center flex-shrink-0">
                     <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
@@ -162,43 +156,38 @@ export default function Contact() {
                   </div>
                   <div>
                     <p className="font-semibold text-emerald-800 text-sm">Message sent!</p>
-                    <p className="text-emerald-600 text-xs mt-0.5">Thank you for reaching out. We&apos;ll get back to you within one business day.</p>
+                    <p className="text-emerald-600 text-xs mt-0.5">We&apos;ll get back to you within one business day.</p>
                   </div>
                 </div>
               )}
 
               {status === "error" && (
-                <div className="mb-8 p-5 bg-red-50 border border-red-200 rounded-2xl">
+                <div className="mb-6 p-4 sm:p-5 bg-red-50 border border-red-200 rounded-2xl">
                   <p className="font-semibold text-red-800 text-sm">Failed to send</p>
                   <p className="text-red-500 text-xs mt-1">{errorMessage}</p>
                 </div>
               )}
 
-              <form onSubmit={handleSubmit} className="space-y-5">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
                   <div className="space-y-1.5">
                     <label htmlFor="name" className="block text-xs font-semibold text-slate-500 uppercase tracking-wider">
                       Full Name <span className="text-blue-500 normal-case tracking-normal">*</span>
                     </label>
                     <input
-                      id="name"
-                      type="text"
-                      required
-                      placeholder="Jane Smith"
+                      id="name" type="text" required placeholder="Jane Smith"
                       value={formData.name}
                       onChange={(e) => setFormData((p) => ({ ...p, name: e.target.value }))}
-                      className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:outline-none focus:ring-3 focus:ring-blue-500/10 transition-all text-slate-800 placeholder-slate-300 text-sm bg-slate-50 focus:bg-white"
+                      className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/10 transition-all text-slate-800 placeholder-slate-300 text-sm bg-slate-50 focus:bg-white"
                     />
                   </div>
                   <div className="space-y-1.5">
                     <label htmlFor="phone" className="block text-xs font-semibold text-slate-500 uppercase tracking-wider">Phone</label>
                     <input
-                      id="phone"
-                      type="tel"
-                      placeholder="+1 (506) 000-0000"
+                      id="phone" type="tel" placeholder="+1 (506) 000-0000"
                       value={formData.phone}
                       onChange={(e) => setFormData((p) => ({ ...p, phone: e.target.value }))}
-                      className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:outline-none focus:ring-3 focus:ring-blue-500/10 transition-all text-slate-800 placeholder-slate-300 text-sm bg-slate-50 focus:bg-white"
+                      className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/10 transition-all text-slate-800 placeholder-slate-300 text-sm bg-slate-50 focus:bg-white"
                     />
                   </div>
                 </div>
@@ -208,19 +197,16 @@ export default function Contact() {
                     Email Address <span className="text-blue-500 normal-case tracking-normal">*</span>
                   </label>
                   <input
-                    id="email"
-                    type="email"
-                    required
-                    placeholder="jane@example.com"
+                    id="email" type="email" required placeholder="jane@example.com"
                     value={formData.email}
                     onChange={(e) => setFormData((p) => ({ ...p, email: e.target.value }))}
-                    className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:outline-none focus:ring-3 focus:ring-blue-500/10 transition-all text-slate-800 placeholder-slate-300 text-sm bg-slate-50 focus:bg-white"
+                    className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/10 transition-all text-slate-800 placeholder-slate-300 text-sm bg-slate-50 focus:bg-white"
                   />
                 </div>
 
                 <div className="space-y-2">
                   <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Program Interest</p>
-                  <div className="grid grid-cols-3 gap-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3">
                     {courseOptions.map((course) => {
                       const checked = formData.courses.includes(course.id);
                       return (
@@ -228,16 +214,16 @@ export default function Contact() {
                           key={course.id}
                           type="button"
                           onClick={() => handleCourseToggle(course.id)}
-                          className={`flex flex-col items-center gap-2 p-3.5 rounded-xl border-2 text-center transition-all duration-200 cursor-pointer ${
+                          className={`flex sm:flex-col items-center sm:items-center gap-3 sm:gap-2 p-3 sm:p-3.5 rounded-xl border-2 text-left sm:text-center transition-all duration-200 cursor-pointer active:scale-95 ${
                             checked
                               ? "border-blue-500 bg-blue-50 text-blue-700"
-                              : "border-slate-100 bg-slate-50 text-slate-500 hover:border-blue-200 hover:bg-blue-50/50"
+                              : "border-slate-100 bg-slate-50 text-slate-500 hover:border-blue-200"
                           }`}
                         >
-                          <span className="text-lg">{course.icon}</span>
-                          <span className={`text-[11px] font-semibold leading-tight ${checked ? "text-blue-700" : "text-slate-600"}`}>{course.label}</span>
+                          <span className="text-xl sm:text-lg flex-shrink-0">{course.icon}</span>
+                          <span className={`text-xs sm:text-[11px] font-semibold ${checked ? "text-blue-700" : "text-slate-600"}`}>{course.label}</span>
                           {checked && (
-                            <span className="w-4 h-4 bg-blue-600 rounded-full flex items-center justify-center">
+                            <span className="ml-auto sm:ml-0 w-4 h-4 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0">
                               <svg className="w-2.5 h-2.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                               </svg>
@@ -252,19 +238,18 @@ export default function Contact() {
                 <div className="space-y-1.5">
                   <label htmlFor="message" className="block text-xs font-semibold text-slate-500 uppercase tracking-wider">Message</label>
                   <textarea
-                    id="message"
-                    rows={4}
+                    id="message" rows={4}
                     placeholder="Tell us about your child's age, experience level, or any questions you have..."
                     value={formData.message}
                     onChange={(e) => setFormData((p) => ({ ...p, message: e.target.value }))}
-                    className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:outline-none focus:ring-3 focus:ring-blue-500/10 transition-all text-slate-800 placeholder-slate-300 text-sm bg-slate-50 focus:bg-white resize-none"
+                    className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/10 transition-all text-slate-800 placeholder-slate-300 text-sm bg-slate-50 focus:bg-white resize-none"
                   />
                 </div>
 
                 <button
                   type="submit"
                   disabled={status === "loading"}
-                  className="w-full py-3.5 bg-blue-600 hover:bg-blue-500 disabled:bg-blue-300 text-white font-semibold text-sm rounded-xl transition-all shadow-lg shadow-blue-600/20 hover:shadow-blue-600/30 hover:-translate-y-0.5 disabled:cursor-not-allowed cursor-pointer flex items-center justify-center gap-2"
+                  className="w-full py-3.5 bg-blue-600 hover:bg-blue-500 disabled:bg-blue-300 text-white font-semibold text-sm rounded-xl transition-all shadow-lg shadow-blue-600/20 hover:shadow-blue-600/30 hover:-translate-y-0.5 active:translate-y-0 disabled:cursor-not-allowed cursor-pointer flex items-center justify-center gap-2"
                 >
                   {status === "loading" ? (
                     <>
