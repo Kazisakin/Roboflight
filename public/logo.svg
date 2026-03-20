@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 48" fill="none">
+  <!-- Icon mark: hexagon with circuit/drone motif -->
+  <g>
+    <!-- Hexagon background -->
+    <polygon points="24,4 40,13 40,35 24,44 8,35 8,13" fill="#1e3a8a"/>
+    <!-- Inner hexagon accent -->
+    <polygon points="24,9 36,16 36,32 24,39 12,32 12,16" fill="none" stroke="#22d3ee" stroke-width="1"/>
+    <!-- Center drone cross shape -->
+    <line x1="24" y1="16" x2="24" y2="32" stroke="#22d3ee" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="16" y1="24" x2="32" y2="24" stroke="#22d3ee" stroke-width="1.5" stroke-linecap="round"/>
+    <!-- Corner dots (propellers) -->
+    <circle cx="18" cy="18" r="2.5" fill="#22d3ee"/>
+    <circle cx="30" cy="18" r="2.5" fill="#22d3ee"/>
+    <circle cx="18" cy="30" r="2.5" fill="#22d3ee"/>
+    <circle cx="30" cy="30" r="2.5" fill="#22d3ee"/>
+    <!-- Center circle -->
+    <circle cx="24" cy="24" r="2.5" fill="#1e3a8a" stroke="#22d3ee" stroke-width="1.2"/>
+  </g>
+  <!-- Wordmark -->
+  <text x="50" y="20" font-family="Poppins, Inter, system-ui, sans-serif" font-weight="700" font-size="14" fill="#1e3a8a" letter-spacing="-0.3">Robo</text>
+  <text x="80" y="20" font-family="Poppins, Inter, system-ui, sans-serif" font-weight="700" font-size="14" fill="#22d3ee" letter-spacing="-0.3">Flight</text>
+  <text x="50" y="34" font-family="Poppins, Inter, system-ui, sans-serif" font-weight="400" font-size="7" fill="#64748b" letter-spacing="2">ROBOTICS &amp; CODING</text>
+</svg>
