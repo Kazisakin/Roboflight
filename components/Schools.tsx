@@ -13,15 +13,18 @@ export default function Schools() {
   const { ref, isInView } = useInView({ threshold: 0.2 });
 
   return (
-    <section className="py-16 sm:py-24 bg-slate-50">
+    <section className="py-16 sm:py-24 relative overflow-hidden" style={{ background: "linear-gradient(135deg, #eff6ff 0%, #e0f2fe 60%, #ecfeff 100%)" }}>
+      <div className="absolute top-1/4 right-0 w-64 h-64 bg-blue-200/30 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 left-1/4 w-72 h-72 bg-cyan-200/30 rounded-full blur-3xl pointer-events-none" />
+
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
 
         <div ref={ref} className="text-center mb-12 sm:mb-16">
-          <p className={`text-xs font-semibold tracking-widest uppercase text-blue-600 mb-3 transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
+          <p className={`text-xs font-bold tracking-widest uppercase text-blue-600 mb-3 transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
             Where We Teach
           </p>
-          <h2 className={`text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight mb-3 transition-all duration-700 delay-75 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-            Partner <span className="text-blue-600">Schools</span>
+          <h2 className={`text-3xl sm:text-5xl font-black text-slate-900 tracking-tight mb-3 transition-all duration-700 delay-75 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+            Partner <span style={{ background: "linear-gradient(135deg, #0ea5e9, #22d3ee)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>Schools</span>
           </h2>
           <p className={`text-slate-500 text-sm max-w-md mx-auto transition-all duration-700 delay-100 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
             RoboFlight is active in schools across New Brunswick, bringing STEM education where it matters most.
@@ -32,7 +35,7 @@ export default function Schools() {
           {schools.map((school, i) => (
             <div
               key={school.name}
-              className={`flex flex-col items-center text-center bg-white border border-slate-100 rounded-2xl p-8 hover:border-blue-100 hover:shadow-lg hover:shadow-blue-50 hover:-translate-y-1 transition-all duration-300 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+              className={`flex flex-col items-center text-center bg-white border-2 border-blue-50 rounded-3xl p-8 hover:border-cyan-200 hover:shadow-xl hover:shadow-blue-100 hover:-translate-y-2 transition-all duration-300 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
               style={{ transitionDelay: `${i * 100 + 150}ms` }}
             >
               {/* Logo */}
@@ -62,15 +65,18 @@ export default function Schools() {
           ))}
         </div>
 
-        <div className="mt-12 sm:mt-16 grid grid-cols-2 sm:grid-cols-4 gap-6 text-center pt-10 border-t border-slate-200">
+        <div className="mt-12 sm:mt-16 grid grid-cols-2 sm:grid-cols-4 gap-6 text-center pt-10 border-t border-blue-100">
           {[
             { value: "3",      label: "Partner Schools" },
             { value: "NB",     label: "Province" },
             { value: "100+",   label: "Students Reached" },
             { value: "Canada", label: "Country" },
-          ].map((item) => (
-            <div key={item.label}>
-              <p className="text-2xl font-bold text-blue-600 mb-1">{item.value}</p>
+          ].map((item, i) => (
+            <div key={item.label} className="group">
+              <p className="text-2xl font-black mb-1 transition-transform duration-200 group-hover:scale-110"
+                style={{ background: i % 2 === 0 ? "linear-gradient(135deg, #0ea5e9, #22d3ee)" : "linear-gradient(135deg, #3b82f6, #38bdf8)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
+                {item.value}
+              </p>
               <p className="text-slate-400 text-xs">{item.label}</p>
             </div>
           ))}

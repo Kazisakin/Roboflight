@@ -1,6 +1,8 @@
 "use client";
 
+import { useRef, useState } from "react";
 import { useInView } from "@/hooks/useInView";
+import { FloatingLightbulb, SketchyIcons } from "@/components/SceneDecorations";
 
 const bullets = [
   "Curriculum designed for all skill levels",
@@ -9,23 +11,51 @@ const bullets = [
   "Taught by an expert with a Masters in EE",
 ];
 
+const CONFETTI_COLORS = ["#22d3ee", "#fbbf24", "#a78bfa", "#f97316", "#34d399", "#f472b6", "#ffffff"];
+
+interface Piece { id: number; cx: string; cy: string; color: string; size: number }
+
 export default function CTA() {
   const { ref, isInView } = useInView({ threshold: 0.2 });
+  const [pieces, setPieces] = useState<Piece[]>([]);
+  const counter = useRef(0);
+
+  const burst = () => {
+    const next: Piece[] = Array.from({ length: 22 }, (_, i) => {
+      const angle = (i / 22) * 360;
+      const rad = (angle * Math.PI) / 180;
+      const dist = 60 + Math.random() * 80;
+      return {
+        id: counter.current++,
+        cx: `${Math.cos(rad) * dist}px`,
+        cy: `${Math.sin(rad) * dist - 30}px`,
+        color: CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)],
+        size: Math.random() * 6 + 4,
+      };
+    });
+    setPieces(next);
+    setTimeout(() => setPieces([]), 750);
+  };
 
   return (
-    <section className="py-16 sm:py-24 bg-blue-600 relative overflow-hidden">
-      {/* Subtle glow */}
+    <section className="py-16 sm:py-24 relative overflow-hidden" style={{ background: "linear-gradient(135deg, #1e40af 0%, #1d4ed8 40%, #0369a1 100%)" }}>
+      {/* Decorative glows */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full translate-x-1/2 -translate-y-1/2 blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-64 h-64 bg-cyan-400/10 rounded-full -translate-x-1/2 translate-y-1/2 blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-64 h-64 bg-cyan-400/15 rounded-full -translate-x-1/2 translate-y-1/2 blur-3xl pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 w-48 h-48 bg-sky-300/8 rounded-full -translate-x-1/2 -translate-y-1/2 blur-2xl pointer-events-none" />
+
+      {/* Sketchy icons + floating lightbulb */}
+      <SketchyIcons variant="education" />
+      <FloatingLightbulb className="absolute top-6 left-10 z-10 opacity-90" />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         <div ref={ref} className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
 
           {/* Left */}
           <div className={`transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-            <h2 className="text-3xl sm:text-4xl font-bold text-white leading-tight mb-4 tracking-tight">
+            <h2 className="text-3xl sm:text-5xl font-black text-white leading-tight mb-4 tracking-tight">
               We teach children how to{" "}
-              <span className="text-cyan-200">build and program robots</span>
+              <span className="text-cyan-300">build and program robots</span>
             </h2>
             <p className="text-blue-100 text-sm leading-relaxed mb-8">
               Students stay engaged in a process that fosters resilience, problem-solving, and a passion for doing hard things. Our hands-on curriculum ensures every session is exciting, challenging, and rewarding.
@@ -61,12 +91,28 @@ export default function CTA() {
                 ))}
               </ul>
 
-              <button
-                onClick={() => { const el = document.getElementById("contact"); if (el) el.scrollIntoView({ behavior: "smooth" }); }}
-                className="w-full py-3 bg-white hover:bg-slate-50 text-blue-600 font-semibold text-sm rounded-xl transition-all duration-200 hover:scale-[1.01] cursor-pointer"
-              >
-                Get in Touch
-              </button>
+              <div className="relative">
+                {pieces.map((p) => (
+                  <div
+                    key={p.id}
+                    className="absolute pointer-events-none rounded-sm"
+                    style={{
+                      width: p.size, height: p.size,
+                      background: p.color,
+                      top: "50%", left: "50%",
+                      animation: "confetti-fall 0.7s ease-out forwards",
+                      ["--cx" as string]: p.cx,
+                      ["--cy" as string]: p.cy,
+                    }}
+                  />
+                ))}
+                <button
+                  onClick={() => { burst(); const el = document.getElementById("contact"); if (el) el.scrollIntoView({ behavior: "smooth" }); }}
+                  className="w-full py-3 bg-white hover:bg-cyan-50 text-blue-700 font-bold text-sm rounded-2xl transition-all duration-200 hover:scale-[1.03] cursor-pointer shadow-lg relative z-10"
+                >
+                  Get in Touch
+                </button>
+              </div>
             </div>
           </div>
 

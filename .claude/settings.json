@@ -7,7 +7,11 @@
       "Bash(node \"c:/Users/kazim/OneDrive/Desktop/GIT/Roboflight/scripts/build-page3.js\")",
       "Bash(node \"c:/Users/kazim/OneDrive/Desktop/GIT/Roboflight/scripts/build-page4.js\")",
       "Bash(node \"c:/Users/kazim/OneDrive/Desktop/GIT/Roboflight/scripts/build-page5.js\")",
-      "Bash(node \"c:/Users/kazim/OneDrive/Desktop/GIT/Roboflight/scripts/build-page6.js\")"
+      "Bash(node \"c:/Users/kazim/OneDrive/Desktop/GIT/Roboflight/scripts/build-page6.js\")",
+      "WebFetch(domain:roboflight.ca)",
+      "WebFetch(domain:scratch.mit.edu)",
+      "WebFetch(domain:code.org)",
+      "WebFetch(domain:www.makewonder.com)"
     ]
   }
 }

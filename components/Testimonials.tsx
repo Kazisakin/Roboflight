@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { useInView } from "@/hooks/useInView";
+import { SketchyIcons, FloatingLightbulb } from "@/components/SceneDecorations";
 
 const testimonials = [
   {
@@ -62,6 +63,10 @@ export default function Testimonials() {
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-600/15 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
 
+      {/* Sketchy icons + floating lightbulb */}
+      <SketchyIcons variant="robotics" />
+      <FloatingLightbulb className="absolute bottom-10 right-16 z-10 opacity-75" />
+
       <div ref={ref} className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6">
         {/* Header */}
         <div className={`text-center mb-10 sm:mb-16 transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
@@ -69,7 +74,7 @@ export default function Testimonials() {
             <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
             Testimonials
           </span>
-          <h2 className="text-2xl sm:text-3xl sm:text-4xl font-bold text-white mb-4 tracking-tight">
+          <h2 className="text-3xl sm:text-5xl font-black text-white mb-4 tracking-tight">
             What people are <span className="text-cyan-400">saying</span>
           </h2>
           <p className="text-blue-300 text-sm max-w-md mx-auto leading-relaxed">

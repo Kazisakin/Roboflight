@@ -63,10 +63,12 @@ export default function Footer() {
 
   return (
     <footer className="bg-blue-950 text-white relative overflow-hidden">
+      {/* Colorful top accent bar */}
+      <div className="h-1 w-full" style={{ background: "linear-gradient(90deg, #3b82f6, #22d3ee, #38bdf8, #0ea5e9, #3b82f6)" }} />
       {/* Top wave */}
       <div className="relative">
         <svg viewBox="0 0 1440 50" xmlns="http://www.w3.org/2000/svg" className="w-full -mb-px" preserveAspectRatio="none">
-          <path d="M0,25 C360,50 1080,0 1440,25 L1440,0 L0,0 Z" fill="#f8fafc" />
+          <path d="M0,25 C360,50 1080,0 1440,25 L1440,0 L0,0 Z" fill="#eff6ff" />
         </svg>
       </div>
 
@@ -154,14 +156,15 @@ export default function Footer() {
         </div>
 
         {/* School CTA strip */}
-        <div className="bg-blue-900/60 border border-blue-800 rounded-xl px-6 py-4 mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+        <div className="rounded-2xl px-6 py-5 mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3" style={{ background: "linear-gradient(135deg, rgba(14,165,233,0.15), rgba(59,130,246,0.15))", border: "1px solid rgba(34,211,238,0.2)" }}>
           <div>
-            <p className="text-white font-semibold text-sm">Interested in bringing RoboFlight to your school?</p>
-            <p className="text-blue-400 text-xs mt-0.5">Reach out and we&apos;ll set up a program for your students.</p>
+            <p className="text-white font-bold text-sm">Interested in bringing RoboFlight to your school?</p>
+            <p className="text-blue-300 text-xs mt-0.5">Reach out and we&apos;ll set up a program for your students.</p>
           </div>
           <button
             onClick={() => scrollTo("#contact")}
-            className="px-5 py-2 bg-cyan-400 hover:bg-cyan-300 text-blue-900 font-semibold rounded-full text-xs whitespace-nowrap transition-all duration-200 hover:scale-105 cursor-pointer"
+            className="px-5 py-2 font-bold rounded-full text-xs whitespace-nowrap transition-all duration-200 hover:scale-110 cursor-pointer shadow-lg shadow-cyan-500/20 text-blue-950"
+            style={{ background: "linear-gradient(135deg, #22d3ee, #38bdf8)" }}
           >
             Get Started
           </button>

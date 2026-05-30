@@ -1,7 +1,34 @@
 "use client";
 
 import Image from "next/image";
+import { useRef, useState } from "react";
 import { useInView } from "@/hooks/useInView";
+import { SketchyIcons, FloatingCrystal } from "@/components/SceneDecorations";
+
+const CONFETTI_COLORS = ["#22d3ee", "#fbbf24", "#a78bfa", "#f97316", "#34d399", "#f472b6", "#ffffff"];
+interface Piece { id: number; cx: string; cy: string; color: string; size: number }
+
+function useBurst() {
+  const [pieces, setPieces] = useState<Piece[]>([]);
+  const counter = useRef(0);
+  const burst = () => {
+    const next: Piece[] = Array.from({ length: 20 }, (_, i) => {
+      const angle = (i / 20) * 360;
+      const rad = (angle * Math.PI) / 180;
+      const dist = 50 + Math.random() * 70;
+      return {
+        id: counter.current++,
+        cx: `${Math.cos(rad) * dist}px`,
+        cy: `${Math.sin(rad) * dist - 30}px`,
+        color: CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)],
+        size: Math.random() * 6 + 4,
+      };
+    });
+    setPieces(next);
+    setTimeout(() => setPieces([]), 750);
+  };
+  return { pieces, burst };
+}
 
 const plans = [
   {
@@ -60,6 +87,7 @@ const plans = [
 
 export default function Pricing() {
   const { ref, isInView } = useInView({ threshold: 0.1 });
+  const { pieces, burst } = useBurst();
 
   return (
     <section id="pricing" className="py-16 sm:py-24 relative overflow-hidden bg-blue-950">
@@ -72,13 +100,17 @@ export default function Pricing() {
       <div className="absolute top-0 left-1/3 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-blue-600/15 rounded-full blur-3xl pointer-events-none" />
 
+      {/* Sketchy education icons + floating crystal */}
+      <SketchyIcons variant="education" />
+      <FloatingCrystal className="absolute top-8 right-12 z-10" />
+
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6">
         <div ref={ref} className="text-center mb-10 sm:mb-14">
           <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-white/10 border border-white/15 text-cyan-300 rounded-full text-xs font-semibold tracking-widest uppercase mb-4">
             <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
             Transparent Pricing
           </span>
-          <h2 className={`text-2xl sm:text-3xl sm:text-4xl font-bold text-white mb-4 tracking-tight transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+          <h2 className={`text-3xl sm:text-5xl font-black text-white mb-4 tracking-tight transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
             Simple, Affordable <span className="text-cyan-400">Pricing</span>
           </h2>
           <p className={`text-blue-300 text-sm max-w-md mx-auto leading-relaxed transition-all duration-700 delay-100 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
@@ -135,16 +167,32 @@ export default function Pricing() {
                   ))}
                 </ul>
 
-                <button
-                  onClick={() => { const el = document.getElementById("contact"); if (el) el.scrollIntoView({ behavior: "smooth" }); }}
-                  className={`w-full py-3 rounded-2xl font-bold text-sm transition-all duration-200 active:scale-95 hover:scale-[1.02] cursor-pointer ${
-                    plan.featured
-                      ? "bg-blue-950 hover:bg-blue-900 text-white shadow-lg"
-                      : "bg-cyan-400 hover:bg-cyan-300 text-blue-950 shadow-md shadow-cyan-500/10"
-                  }`}
-                >
-                  Get Started
-                </button>
+                <div className="relative">
+                  {pieces.map((p) => (
+                    <div
+                      key={p.id}
+                      className="absolute pointer-events-none rounded-sm"
+                      style={{
+                        width: p.size, height: p.size,
+                        background: p.color,
+                        top: "50%", left: "50%",
+                        animation: "confetti-fall 0.7s ease-out forwards",
+                        ["--cx" as string]: p.cx,
+                        ["--cy" as string]: p.cy,
+                      }}
+                    />
+                  ))}
+                  <button
+                    onClick={() => { burst(); const el = document.getElementById("contact"); if (el) el.scrollIntoView({ behavior: "smooth" }); }}
+                    className={`relative z-10 w-full py-3 rounded-2xl font-bold text-sm transition-all duration-200 active:scale-95 hover:scale-[1.02] cursor-pointer ${
+                      plan.featured
+                        ? "bg-blue-950 hover:bg-blue-900 text-white shadow-lg"
+                        : "bg-cyan-400 hover:bg-cyan-300 text-blue-950 shadow-md shadow-cyan-500/10"
+                    }`}
+                  >
+                    Get Started
+                  </button>
+                </div>
               </div>
             </div>
           ))}

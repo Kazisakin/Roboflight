@@ -95,18 +95,19 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-16 sm:py-24 bg-white relative overflow-hidden">
-      <div className="absolute inset-0 opacity-[0.025]" style={{ backgroundImage: "radial-gradient(#1e40af 1px, transparent 1px)", backgroundSize: "32px 32px" }} />
-      <div className="absolute top-0 right-0 w-96 h-96 bg-blue-50 rounded-full translate-x-1/2 -translate-y-1/2 blur-3xl pointer-events-none" />
+    <section id="contact" className="py-16 sm:py-24 relative overflow-hidden" style={{ background: "linear-gradient(180deg, #eff6ff 0%, #ffffff 40%)" }}>
+      <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: "radial-gradient(#0ea5e9 1px, transparent 1px)", backgroundSize: "28px 28px" }} />
+      <div className="absolute top-0 right-0 w-96 h-96 bg-cyan-100/60 rounded-full translate-x-1/2 -translate-y-1/2 blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-72 h-72 bg-blue-100/40 rounded-full -translate-x-1/2 translate-y-1/2 blur-3xl pointer-events-none" />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         <div className="text-center mb-10 sm:mb-16">
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-blue-50 border border-blue-100 text-blue-600 rounded-full text-xs font-semibold tracking-widest uppercase mb-4">
-            <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-blue-600 text-white rounded-full text-xs font-bold tracking-widest uppercase mb-4 shadow-lg shadow-blue-500/20">
+            <span className="w-1.5 h-1.5 rounded-full bg-cyan-300 animate-pulse" />
             Get In Touch
           </span>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-4 tracking-tight">
-            Enrol your child <span className="text-blue-600">today</span>
+          <h2 className="text-3xl sm:text-5xl font-black text-slate-900 mb-4 tracking-tight">
+            Enrol your child <span style={{ background: "linear-gradient(135deg, #0ea5e9, #22d3ee)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>today</span>
           </h2>
           <p className="text-slate-400 text-sm max-w-md mx-auto leading-relaxed">
             Interested in one of our programs? Fill in the form and we&apos;ll be in touch within one business day.
@@ -118,8 +119,8 @@ export default function Contact() {
           <div className={`lg:col-span-2 transition-all duration-700 ${isInView ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10"}`}>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-3">
               {info.map((item) => (
-                <div key={item.label} className="flex items-start gap-4 p-4 bg-slate-50 rounded-2xl border border-slate-100 hover:border-blue-100 transition-colors">
-                  <div className="w-9 h-9 bg-blue-600 rounded-xl flex items-center justify-center text-white flex-shrink-0">
+                <div key={item.label} className="flex items-start gap-4 p-4 bg-white rounded-2xl border-2 border-blue-50 hover:border-cyan-200 hover:shadow-md transition-all">
+                  <div className="w-9 h-9 rounded-xl flex items-center justify-center text-white flex-shrink-0" style={{ background: "linear-gradient(135deg, #0ea5e9, #38bdf8)" }}>
                     {item.icon}
                   </div>
                   <div>
@@ -249,7 +250,8 @@ export default function Contact() {
                 <button
                   type="submit"
                   disabled={status === "loading"}
-                  className="w-full py-3.5 bg-blue-600 hover:bg-blue-500 disabled:bg-blue-300 text-white font-semibold text-sm rounded-xl transition-all shadow-lg shadow-blue-600/20 hover:shadow-blue-600/30 hover:-translate-y-0.5 active:translate-y-0 disabled:cursor-not-allowed cursor-pointer flex items-center justify-center gap-2"
+                  className="w-full py-3.5 disabled:opacity-50 text-white font-bold text-sm rounded-2xl transition-all shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 hover:-translate-y-1 hover:scale-[1.01] active:translate-y-0 disabled:cursor-not-allowed cursor-pointer flex items-center justify-center gap-2"
+                  style={{ background: "linear-gradient(135deg, #0ea5e9, #3b82f6)" }}
                 >
                   {status === "loading" ? (
                     <>

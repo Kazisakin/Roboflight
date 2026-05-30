@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useInView } from "@/hooks/useInView";
 import Link from "next/link";
+import { FloatingCrystal, SketchyIcons } from "@/components/SceneDecorations";
 
 function RedirectModal({ onClose }: { onClose: () => void }) {
   return (
@@ -33,12 +34,12 @@ function RedirectModal({ onClose }: { onClose: () => void }) {
 }
 
 const steps = [
-  { id: 1, label: "Gather Parts",     color: "bg-blue-600" },
-  { id: 2, label: "Build Chassis",    color: "bg-blue-500" },
-  { id: 3, label: "Wire Motors",      color: "bg-cyan-500" },
-  { id: 4, label: "Connect Arduino",  color: "bg-blue-600" },
-  { id: 5, label: "Upload Code",      color: "bg-cyan-600" },
-  { id: 6, label: "Drive!",           color: "bg-blue-700" },
+  { id: 1, label: "Gather Parts",     color: "from-blue-500 to-cyan-400" },
+  { id: 2, label: "Build Chassis",    color: "from-cyan-500 to-blue-400" },
+  { id: 3, label: "Wire Motors",      color: "from-sky-500 to-cyan-400" },
+  { id: 4, label: "Connect Arduino",  color: "from-blue-600 to-sky-400" },
+  { id: 5, label: "Upload Code",      color: "from-cyan-600 to-blue-500" },
+  { id: 6, label: "Drive!",           color: "from-blue-500 to-cyan-300" },
 ];
 
 export default function ArduinoTeaser() {
@@ -47,18 +48,23 @@ export default function ArduinoTeaser() {
 
   return (
     <>
-      <section className="py-16 sm:py-24 bg-slate-950 relative overflow-hidden">
+      <section className="py-16 sm:py-24 relative overflow-hidden bg-gradient-to-br from-blue-950 via-blue-900 to-indigo-950">
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-blue-600/8 rounded-full translate-x-1/2 -translate-y-1/2 blur-[100px]" />
+          <div className="absolute top-0 right-0 w-96 h-96 bg-cyan-500/12 rounded-full translate-x-1/2 -translate-y-1/2 blur-[100px]" />
+          <div className="absolute bottom-0 left-0 w-72 h-72 bg-blue-500/10 rounded-full blur-[80px]" />
         </div>
+
+        {/* Sketchy icons + crystal */}
+        <SketchyIcons variant="robotics" />
+        <FloatingCrystal className="absolute bottom-12 left-8 z-10 opacity-80" />
 
         <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
           <div ref={ref} className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 
             {/* Left */}
             <div className={`transition-all duration-700 ${isInView ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-8"}`}>
-              <p className="text-xs font-semibold tracking-widest uppercase text-cyan-400 mb-3">Try It Yourself</p>
-              <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight mb-4 leading-tight">
+              <p className="text-xs font-black tracking-widest uppercase text-cyan-400 mb-3">Try It Yourself</p>
+              <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-4 leading-tight">
                 Build Your Own{" "}
                 <span className="text-cyan-400">Arduino Robot Car</span>
               </h2>
@@ -70,10 +76,10 @@ export default function ArduinoTeaser() {
                 {steps.map((s, i) => (
                   <div
                     key={s.id}
-                    className={`flex items-center gap-2.5 px-3 py-2.5 bg-white/5 border border-white/8 rounded-xl transition-all duration-500 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
+                    className={`flex items-center gap-2.5 px-3 py-2.5 bg-white/6 border border-cyan-400/10 rounded-xl hover:border-cyan-400/30 hover:bg-white/10 transition-all duration-500 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
                     style={{ transitionDelay: `${i * 60 + 200}ms` }}
                   >
-                    <span className={`w-5 h-5 rounded-full ${s.color} flex items-center justify-center text-[10px] font-bold text-white flex-shrink-0`}>{s.id}</span>
+                    <span className={`w-5 h-5 rounded-full bg-gradient-to-br ${s.color} flex items-center justify-center text-[10px] font-bold text-white flex-shrink-0`}>{s.id}</span>
                     <span className="text-white/60 text-xs font-medium">{s.label}</span>
                   </div>
                 ))}
@@ -81,7 +87,8 @@ export default function ArduinoTeaser() {
 
               <button
                 onClick={() => setShowModal(true)}
-                className="inline-flex items-center gap-2 px-6 py-3 bg-cyan-400 hover:bg-cyan-300 text-slate-900 font-semibold text-sm rounded-full transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer"
+                className="inline-flex items-center gap-2.5 px-8 py-4 font-black text-base rounded-2xl transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer shadow-xl shadow-cyan-500/30 text-blue-950"
+                style={{ background: "linear-gradient(135deg, #22d3ee, #38bdf8)" }}
               >
                 Start Building
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>

@@ -4,9 +4,37 @@ import Image from "next/image";
 import { useInView } from "@/hooks/useInView";
 
 const skills = [
-  { title: "Creativity, problem-solving, delayed gratification", description: "Students learn to think critically, persist through challenges, and appreciate long-term achievement." },
-  { title: "Coding literacy, circuit design, and soldering",     description: "Practical technical skills forming the foundation of a career in engineering or technology." },
-  { title: "Readiness for a coding-driven workplace",            description: "Future-proof skills preparing students for the rapidly evolving demands of the modern tech workforce." },
+  {
+    title: "Creativity, problem-solving, delayed gratification",
+    description: "Students learn to think critically, persist through challenges, and appreciate long-term achievement.",
+    color: "from-blue-500 to-cyan-400",
+    icon: (
+      <svg className="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/>
+      </svg>
+    ),
+  },
+  {
+    title: "Coding literacy, circuit design, and soldering",
+    description: "Practical technical skills forming the foundation of a career in engineering or technology.",
+    color: "from-cyan-500 to-sky-400",
+    icon: (
+      <svg className="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+        <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+      </svg>
+    ),
+  },
+  {
+    title: "Readiness for a coding-driven workplace",
+    description: "Future-proof skills preparing students for the rapidly evolving demands of the modern tech workforce.",
+    color: "from-blue-600 to-sky-500",
+    icon: (
+      <svg className="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+        <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 00-2.91-.09z"/>
+        <path d="m12 15-3-3a22 22 0 012-3.95A12.88 12.88 0 0122 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 01-4 2z"/>
+      </svg>
+    ),
+  },
 ];
 
 export default function About() {
@@ -14,7 +42,8 @@ export default function About() {
   const { ref: rightRef, isInView: rightInView } = useInView({ threshold: 0.2 });
 
   return (
-    <section id="about" className="py-16 sm:py-24 bg-white">
+    <section id="about" className="py-16 sm:py-24 bg-white relative overflow-hidden">
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-sky-50 rounded-full translate-x-1/2 translate-y-1/2 blur-3xl pointer-events-none" />
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
@@ -44,10 +73,12 @@ export default function About() {
 
           {/* Content */}
           <div ref={rightRef} className={`transition-all duration-700 ${rightInView ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"}`}>
-            <p className="text-xs font-semibold tracking-widest uppercase text-blue-600 mb-3">Why Choose Us?</p>
-            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight mb-4 leading-tight">
+            <p className="text-xs font-bold tracking-widest uppercase mb-3 text-blue-600">
+              Why Choose Us?
+            </p>
+            <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight mb-4 leading-tight">
               Meet{" "}
-              <span className="text-blue-600">Abdur Rahman</span><br />Chowdhury
+              <span style={{ background: "linear-gradient(135deg, #0ea5e9, #22d3ee)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>Abdur Rahman</span><br />Chowdhury
             </h2>
             <p className="text-slate-500 text-sm leading-relaxed mb-8">
               A Masters student in Electrical Engineering at UNB, with a lifelong passion for robotics and coding. Driven by a dream to one day build a Mars lander, he founded RoboFlight to bring hands-on STEM education to children across New Brunswick.
@@ -57,16 +88,14 @@ export default function About() {
               {skills.map((skill, i) => (
                 <div
                   key={skill.title}
-                  className={`flex items-start gap-3 p-4 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-100 transition-colors ${rightInView ? "opacity-100 translate-x-0" : "opacity-0 translate-x-4"}`}
+                  className={`flex items-start gap-3 p-4 rounded-2xl border-2 border-blue-50 bg-white hover:border-cyan-200 hover:shadow-lg hover:-translate-y-1 transition-all ${rightInView ? "opacity-100 translate-x-0" : "opacity-0 translate-x-4"}`}
                   style={{ transitionDelay: `${i * 80 + 200}ms` }}
                 >
-                  <div className="w-5 h-5 rounded-full bg-blue-600 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <svg className="w-2.5 h-2.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                    </svg>
+                  <div className={`w-9 h-9 rounded-xl bg-gradient-to-br ${skill.color} flex items-center justify-center flex-shrink-0 shadow-sm`}>
+                    {skill.icon}
                   </div>
                   <div>
-                    <p className="font-medium text-slate-800 text-sm mb-0.5">{skill.title}</p>
+                    <p className="font-bold text-slate-800 text-sm mb-0.5">{skill.title}</p>
                     <p className="text-slate-400 text-xs leading-relaxed">{skill.description}</p>
                   </div>
                 </div>
