@@ -38,12 +38,7 @@ export default function CTA() {
   };
 
   return (
-    <section className="py-16 sm:py-24 relative overflow-hidden" style={{ background: "linear-gradient(135deg, #1e40af 0%, #1d4ed8 40%, #0369a1 100%)" }}>
-      {/* Decorative glows */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full translate-x-1/2 -translate-y-1/2 blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-64 h-64 bg-cyan-400/15 rounded-full -translate-x-1/2 translate-y-1/2 blur-3xl pointer-events-none" />
-      <div className="absolute top-1/2 left-1/2 w-48 h-48 bg-sky-300/8 rounded-full -translate-x-1/2 -translate-y-1/2 blur-2xl pointer-events-none" />
-
+    <section className="py-16 sm:py-24 relative overflow-hidden section-parallax">
       {/* Sketchy icons + floating lightbulb */}
       <SketchyIcons variant="education" />
       <FloatingLightbulb className="absolute top-6 left-10 z-10 opacity-90" />
@@ -57,24 +52,24 @@ export default function CTA() {
               We teach children how to{" "}
               <span className="text-cyan-300">build and program robots</span>
             </h2>
-            <p className="text-blue-100 text-sm leading-relaxed mb-8">
+            <p className="text-blue-100 text-[15px] leading-[1.8] mb-8">
               Students stay engaged in a process that fosters resilience, problem-solving, and a passion for doing hard things. Our hands-on curriculum ensures every session is exciting, challenging, and rewarding.
             </p>
-            <blockquote className="border-l-2 border-white/25 pl-5">
-              <p className="text-white/75 italic text-sm leading-relaxed mb-2">
+            <blockquote className="border-l-2 border-cyan-400/40 pl-5">
+              <p className="text-white/90 italic text-[15px] leading-[1.8] mb-2">
                 &ldquo;Every child has the potential to be an innovator. We just need to give them the tools, the guidance, and the space to dream big.&rdquo;
               </p>
-              <p className="text-cyan-200 text-xs font-medium">— Abdur Rahman Chowdhury, Founder</p>
+              <p className="text-cyan-200 text-sm font-medium">— Abdur Rahman Chowdhury, Founder</p>
             </blockquote>
           </div>
 
           {/* Right */}
           <div className={`transition-all duration-700 delay-150 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
             <div className="bg-white/10 border border-white/15 rounded-2xl p-6 sm:p-8">
-              <h3 className="text-base font-semibold text-white mb-2">
+              <h3 className="text-lg font-bold text-white mb-2">
                 Robotics and coding can take flight in your school
               </h3>
-              <p className="text-blue-100 text-sm leading-relaxed mb-6">
+              <p className="text-blue-100 text-[15px] leading-[1.8] mb-6">
                 RoboFlight partners with schools across New Brunswick to deliver structured, curriculum-aligned sessions.
               </p>
 
@@ -86,7 +81,7 @@ export default function CTA() {
                         <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                       </svg>
                     </div>
-                    <span className="text-white/85 text-sm">{item}</span>
+                    <span className="text-white text-[15px]">{item}</span>
                   </li>
                 ))}
               </ul>

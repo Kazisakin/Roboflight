@@ -96,20 +96,14 @@ export default function Contact() {
 
   return (
     <section id="contact" className="py-16 sm:py-24 relative overflow-hidden" style={{ background: "linear-gradient(180deg, #eff6ff 0%, #ffffff 40%)" }}>
-      <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: "radial-gradient(#0ea5e9 1px, transparent 1px)", backgroundSize: "28px 28px" }} />
-      <div className="absolute top-0 right-0 w-96 h-96 bg-cyan-100/60 rounded-full translate-x-1/2 -translate-y-1/2 blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-72 h-72 bg-blue-100/40 rounded-full -translate-x-1/2 translate-y-1/2 blur-3xl pointer-events-none" />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         <div className="text-center mb-10 sm:mb-16">
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-blue-600 text-white rounded-full text-xs font-bold tracking-widest uppercase mb-4 shadow-lg shadow-blue-500/20">
-            <span className="w-1.5 h-1.5 rounded-full bg-cyan-300 animate-pulse" />
-            Get In Touch
-          </span>
+          <p className="section-eyebrow text-blue-500 mb-4">Get In Touch</p>
           <h2 className="text-3xl sm:text-5xl font-black text-slate-900 mb-4 tracking-tight">
             Enrol your child <span style={{ background: "linear-gradient(135deg, #0ea5e9, #22d3ee)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>today</span>
           </h2>
-          <p className="text-slate-400 text-sm max-w-md mx-auto leading-relaxed">
+          <p className="text-slate-600 text-[15px] max-w-md mx-auto leading-[1.8]">
             Interested in one of our programs? Fill in the form and we&apos;ll be in touch within one business day.
           </p>
         </div>
@@ -138,7 +132,7 @@ export default function Contact() {
                 </svg>
                 <div>
                   <p className="font-semibold text-sm mb-1">Safe & Secure</p>
-                  <p className="text-blue-200 text-xs leading-relaxed">Your personal information is kept private and never shared. We follow Canadian privacy law (PIPEDA).</p>
+                  <p className="text-blue-200 text-sm leading-[1.7]">Your personal information is kept private and never shared. We follow Canadian privacy law (PIPEDA).</p>
                 </div>
               </div>
             </div>
@@ -172,7 +166,7 @@ export default function Contact() {
               <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
                   <div className="space-y-1.5">
-                    <label htmlFor="name" className="block text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                    <label htmlFor="name" className="block text-xs font-semibold text-slate-600 uppercase tracking-wider">
                       Full Name <span className="text-blue-500 normal-case tracking-normal">*</span>
                     </label>
                     <input
@@ -183,7 +177,7 @@ export default function Contact() {
                     />
                   </div>
                   <div className="space-y-1.5">
-                    <label htmlFor="phone" className="block text-xs font-semibold text-slate-500 uppercase tracking-wider">Phone</label>
+                    <label htmlFor="phone" className="block text-xs font-semibold text-slate-600 uppercase tracking-wider">Phone</label>
                     <input
                       id="phone" type="tel" placeholder="+1 (506) 000-0000"
                       value={formData.phone}
@@ -194,7 +188,7 @@ export default function Contact() {
                 </div>
 
                 <div className="space-y-1.5">
-                  <label htmlFor="email" className="block text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                  <label htmlFor="email" className="block text-xs font-semibold text-slate-600 uppercase tracking-wider">
                     Email Address <span className="text-blue-500 normal-case tracking-normal">*</span>
                   </label>
                   <input
@@ -237,7 +231,7 @@ export default function Contact() {
                 </div>
 
                 <div className="space-y-1.5">
-                  <label htmlFor="message" className="block text-xs font-semibold text-slate-500 uppercase tracking-wider">Message</label>
+                  <label htmlFor="message" className="block text-xs font-semibold text-slate-600 uppercase tracking-wider">Message</label>
                   <textarea
                     id="message" rows={4}
                     placeholder="Tell us about your child's age, experience level, or any questions you have..."

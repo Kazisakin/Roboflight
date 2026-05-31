@@ -56,6 +56,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en" className={`${inter.variable} ${jakarta.variable}`}>
       <body className={`${inter.className} antialiased`}>
+        {/* Fixed deep-space layer — dark sections "pass through" this as you scroll */}
+        <div className="fixed inset-0 -z-10 pointer-events-none" aria-hidden="true"
+          style={{ background: "linear-gradient(145deg, #060d1a 0%, #091525 40%, #060e1e 100%)" }} />
         {children}
         <CookieConsent />
         <CustomCursor />

@@ -43,9 +43,8 @@ export default function About() {
 
   return (
     <section id="about" className="py-16 sm:py-24 bg-white relative overflow-hidden">
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-sky-50 rounded-full translate-x-1/2 translate-y-1/2 blur-3xl pointer-events-none" />
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-16 items-center">
 
           {/* Image */}
           <div ref={leftRef} className={`relative transition-all duration-700 ${leftInView ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-8"}`}>
@@ -73,18 +72,16 @@ export default function About() {
 
           {/* Content */}
           <div ref={rightRef} className={`transition-all duration-700 ${rightInView ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"}`}>
-            <p className="text-xs font-bold tracking-widest uppercase mb-3 text-blue-600">
-              Why Choose Us?
-            </p>
+            <p className="section-eyebrow-left text-blue-500">Why Choose Us</p>
             <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight mb-4 leading-tight">
               Meet{" "}
               <span style={{ background: "linear-gradient(135deg, #0ea5e9, #22d3ee)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>Abdur Rahman</span><br />Chowdhury
             </h2>
-            <p className="text-slate-500 text-sm leading-relaxed mb-8">
+            <p className="text-slate-600 text-[15px] leading-[1.8] mb-8">
               A Masters student in Electrical Engineering at UNB, with a lifelong passion for robotics and coding. Driven by a dream to one day build a Mars lander, he founded RoboFlight to bring hands-on STEM education to children across New Brunswick.
             </p>
 
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-4 sm:gap-3">
               {skills.map((skill, i) => (
                 <div
                   key={skill.title}
@@ -95,8 +92,8 @@ export default function About() {
                     {skill.icon}
                   </div>
                   <div>
-                    <p className="font-bold text-slate-800 text-sm mb-0.5">{skill.title}</p>
-                    <p className="text-slate-400 text-xs leading-relaxed">{skill.description}</p>
+                    <p className="font-bold text-slate-800 text-[15px] mb-1">{skill.title}</p>
+                    <p className="text-slate-500 text-sm leading-[1.7]">{skill.description}</p>
                   </div>
                 </div>
               ))}

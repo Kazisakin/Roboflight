@@ -15,7 +15,7 @@ function Stat({ end, suffix, label, icon }: StatProps) {
       <p className="text-4xl sm:text-5xl font-black text-white tabular-nums leading-none mb-1">
         {count}<span className="text-cyan-300">{suffix}</span>
       </p>
-      <p className="text-blue-200 text-sm font-medium">{label}</p>
+      <p className="text-blue-100 text-[15px] font-medium">{label}</p>
     </div>
   );
 }
@@ -57,17 +57,11 @@ const items = [
 
 export default function Stats() {
   return (
-    <section className="py-14 sm:py-20 relative overflow-hidden" style={{ background: "linear-gradient(135deg, #1e40af 0%, #1d4ed8 50%, #0369a1 100%)" }}>
-      {/* Sketchy floating icons */}
+    <section className="py-14 sm:py-20 relative overflow-hidden section-parallax">
       <SketchyIcons variant="robotics" />
 
-      {/* Dot grid overlay */}
-      <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "radial-gradient(circle, #ffffff 1px, transparent 1px)", backgroundSize: "24px 24px" }} />
-      <div className="absolute top-0 left-1/4 w-64 h-64 bg-cyan-400/15 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-blue-300/10 rounded-full blur-3xl pointer-events-none" />
-
       <div className="max-w-4xl mx-auto px-4 sm:px-6 relative z-10">
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 sm:gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-10 sm:gap-6">
           {items.map((item) => <Stat key={item.label} {...item} />)}
         </div>
       </div>

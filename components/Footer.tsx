@@ -72,8 +72,6 @@ export default function Footer() {
         </svg>
       </div>
 
-      <div className="absolute top-0 right-0 w-80 h-80 bg-blue-900/60 rounded-full translate-x-1/2 -translate-y-1/2 blur-3xl pointer-events-none" />
-
       <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-12 pb-6 relative z-10">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
 

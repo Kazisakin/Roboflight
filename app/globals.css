@@ -4,6 +4,75 @@ html {
   scroll-behavior: smooth;
 }
 
+/* ── Global fixed background — dark sections "pass through" this ── */
+body {
+  background: #060d1a;
+  font-size: 16px;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Comfortable paragraph reading defaults */
+p { line-height: 1.75; }
+h1, h2, h3, h4 { line-height: 1.15; letter-spacing: -0.02em; }
+
+/* Section headings — minimum readable size on mobile */
+@media (max-width: 639px) {
+  section h2 { font-size: 1.875rem; } /* 30px → same but ensure it's set */
+}
+
+/* Readable body text helpers */
+.body-text-dark  { font-size: 1rem; line-height: 1.75; color: rgba(255,255,255,0.82); }
+.body-text-light { font-size: 1rem; line-height: 1.75; color: #475569; } /* slate-600 */
+
+/* ── Section eyebrow label — minimal, no pill/box ──────────────── */
+.section-eyebrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  font-size: 0.6875rem;   /* 11px */
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 0.875rem;
+}
+.section-eyebrow::before,
+.section-eyebrow::after {
+  content: '';
+  width: 1.25rem;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.35;
+  flex-shrink: 0;
+}
+/* Left-aligned variant — no decorative lines, used inside content blocks */
+.section-eyebrow-left {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+/* ── Section typography scale — consistent across all sections ── */
+.section-heading {
+  font-size: 2rem;
+  line-height: 1.15;
+  font-weight: 900;
+  letter-spacing: -0.025em;
+}
+@media (min-width: 640px)  { .section-heading { font-size: 2.75rem; } }
+@media (min-width: 1024px) { .section-heading { font-size: 3.25rem; } }
+
+.section-subtext {
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  max-width: 38rem;
+}
+@media (min-width: 640px) { .section-subtext { font-size: 1rem; } }
+
 /* Hide default cursor on non-touch devices — replaced by CustomCursor */
 @media (pointer: fine) {
   *, *::before, *::after {
@@ -125,6 +194,91 @@ h1, h2, h3, h4, h5, h6,
 @keyframes node-pulse {
   0%, 100% { opacity: 0.3; r: 2; }
   50%       { opacity: 1; r: 4; }
+}
+
+/* ── Mobile / tablet breathing room ─────────────────────────────────── */
+
+/* All non-desktop screens (< 1024 px) */
+@media (max-width: 1023px) {
+  /* Section vertical padding */
+  section {
+    padding-top: 4.5rem !important;
+    padding-bottom: 4.5rem !important;
+  }
+
+  /* More air beneath section headings */
+  section h2 {
+    margin-bottom: 1.25rem;
+  }
+
+  /* Section-level grids (card grids, not tiny icon rows) —
+     target only grids that are direct children of section containers */
+  section .grid {
+    gap: 2rem;
+  }
+
+  /* Reduce star field — show only first 20 */
+  .hero-stars-container > div:nth-child(n+21) {
+    display: none;
+  }
+}
+
+/* Phone only (< 640 px) */
+@media (max-width: 639px) {
+  section {
+    padding-top: 3.5rem !important;
+    padding-bottom: 3.5rem !important;
+  }
+
+  /* Wider horizontal breathing room inside containers */
+  section > div {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  /* A bit more gap between stacked cards */
+  section .grid {
+    gap: 1.75rem;
+  }
+
+  /* Paragraph spacing inside sections */
+  section p {
+    margin-bottom: 0.75rem;
+  }
+
+  /* Bigger tap targets on primary buttons */
+  section button {
+    min-height: 3rem;
+  }
+}
+
+/* ── Parallax pass-through — ALL dark sections share one fixed background */
+/* Identical gradient + fixed = viewport stays still, content scrolls over */
+.section-parallax {
+  background: linear-gradient(160deg, #060d1e 0%, #0a1530 55%, #060d1e 100%) !important;
+  background-attachment: fixed !important;
+  background-size: cover !important;
+}
+
+/* Suppress decorative glow/blob animations site-wide */
+.animate-blob,
+.animate-glow-pulse,
+.animate-pulse-glow {
+  animation: none !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* ── Decorative icon visibility by breakpoint ─────────────────────── */
+/* Already hidden < 1024px via hidden lg:block on wrapper.              */
+/* Extra reduction at "mid" desktop (1024–1279px): hide xl-only icons   */
+.icon-xl-hide {
+  display: none;
+}
+@media (min-width: 1280px) {
+  .icon-xl-hide {
+    display: block;
+  }
 }
 
 .animate-float          { animation: float 6s ease-in-out infinite; }

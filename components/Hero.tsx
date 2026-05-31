@@ -25,7 +25,7 @@ export default function Hero() {
     >
 
       {/* Twinkling star field */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+      <div className="hero-stars-container absolute inset-0 pointer-events-none overflow-hidden">
         {Array.from({ length: 55 }).map((_, i) => {
           const size = Math.random() * 2.5 + 1;
           const dur = 1.5 + Math.random() * 3;
@@ -47,8 +47,8 @@ export default function Hero() {
         })}
       </div>
 
-      {/* Circuit trace SVG background */}
-      <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ animation: "circuit-glow 4s ease-in-out infinite" }} viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" fill="none">
+      {/* Circuit trace SVG background — hidden on mobile/tablet */}
+      <svg className="absolute inset-0 w-full h-full pointer-events-none hidden lg:block" style={{ animation: "circuit-glow 4s ease-in-out infinite" }} viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" fill="none">
         <g stroke="#38bdf8" strokeWidth="1" strokeLinecap="round">
           <polyline points="100,50 100,200 300,200 300,350 500,350"/>
           <polyline points="1340,100 1200,100 1200,250 1000,250 1000,400 800,400"/>
@@ -68,18 +68,11 @@ export default function Hero() {
         </g>
       </svg>
 
-      {/* Big glowing blobs */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/4 left-1/5 w-[700px] h-[700px] bg-blue-600/20 rounded-full blur-[140px] animate-blob" />
-        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-cyan-400/15 rounded-full blur-[120px] animate-blob" style={{ animationDelay: "3s" }} />
-        <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-sky-500/10 rounded-full blur-[100px] animate-blob" style={{ animationDelay: "6s" }} />
-      </div>
-
-      {/* Flying drone with dashed trail */}
+      {/* Flying drone */}
       <FlyingDrone />
 
-      {/* SVG star sparkles */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+      {/* SVG star sparkles — hidden on mobile/tablet */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden hidden lg:block">
         {[
           { pos: "top-16 left-16", size: 18, delay: "0s", opacity: "0.5" },
           { pos: "top-28 right-24", size: 14, delay: "0.8s", opacity: "0.4" },
@@ -161,7 +154,7 @@ export default function Hero() {
           </div>
 
           <p
-            className={`text-base sm:text-lg text-white/55 max-w-md mb-8 leading-relaxed transition-all duration-700 ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+            className={`text-base sm:text-lg text-white/80 max-w-md mb-8 leading-[1.8] transition-all duration-700 ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
             style={{ transitionDelay: "0.3s" }}
           >
             Empowering the next generation of innovators through hands-on robotics, drone building, and coding education across New Brunswick.
@@ -202,7 +195,7 @@ export default function Hero() {
             ].map((s) => (
               <div key={s.label}>
                 <p className="text-3xl font-black text-white">{s.val}</p>
-                <p className="text-white/40 text-xs mt-0.5 font-medium">{s.label}</p>
+                <p className="text-white/65 text-sm mt-0.5 font-medium">{s.label}</p>
               </div>
             ))}
           </div>

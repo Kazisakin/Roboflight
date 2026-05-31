@@ -43,21 +43,18 @@ export default function Courses() {
   return (
     <section id="programs" className="py-16 sm:py-24 relative overflow-hidden" style={{ background: "linear-gradient(180deg, #eff6ff 0%, #e0f2fe 100%)" }}>
       <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: "radial-gradient(circle, #0ea5e9 1px, transparent 1px)", backgroundSize: "36px 36px" }} />
-      <div className="absolute top-0 right-0 w-80 h-80 bg-blue-200/40 rounded-full translate-x-1/2 -translate-y-1/2 blur-3xl pointer-events-none" />
       <FloatingRobot className="absolute bottom-10 right-10 z-10 opacity-70" />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         <div ref={ref} className="text-center mb-12 sm:mb-16">
-          <p className={`text-xs font-black tracking-widest uppercase text-blue-500 mb-3 transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
-            Our Programs
-          </p>
+          <p className={`section-eyebrow text-blue-500 transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>Our Programs</p>
           <h2 className={`text-3xl sm:text-5xl font-black text-slate-900 tracking-tight transition-all duration-700 delay-75 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
             Courses{" "}
             <span style={{ background: "linear-gradient(135deg, #0ea5e9, #22d3ee)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>Offered</span>
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-8">
           {courses.map((course, i) => (
             <div
               key={course.title}
@@ -95,8 +92,8 @@ export default function Courses() {
               <div className={`h-2 w-full bg-gradient-to-r ${course.accent}`} />
 
               <div className="p-6">
-                <h3 className="text-lg font-black text-slate-900 mb-2">{course.title}</h3>
-                <p className="text-slate-500 text-sm leading-relaxed mb-4">{course.description}</p>
+                <h3 className="text-xl font-black text-slate-900 mb-2">{course.title}</h3>
+                <p className="text-slate-600 text-[15px] leading-[1.75] mb-4">{course.description}</p>
 
                 <div className="flex flex-wrap gap-2 mb-5">
                   {course.tags.map((tag) => (

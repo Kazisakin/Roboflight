@@ -54,14 +54,7 @@ export default function Testimonials() {
   const t = testimonials[active];
 
   return (
-    <section className="py-16 sm:py-24 relative overflow-hidden bg-blue-950">
-      <div className="absolute inset-0">
-        <Image src="/gallery-2.jpg" alt="Kids learning robotics" fill className="object-cover object-center" sizes="100vw" quality={80} />
-        <div className="absolute inset-0 bg-blue-950/85" />
-      </div>
-
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-600/15 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
+    <section className="py-16 sm:py-24 relative overflow-hidden section-parallax">
 
       {/* Sketchy icons + floating lightbulb */}
       <SketchyIcons variant="robotics" />
@@ -70,14 +63,11 @@ export default function Testimonials() {
       <div ref={ref} className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6">
         {/* Header */}
         <div className={`text-center mb-10 sm:mb-16 transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-white/10 border border-white/15 text-cyan-300 rounded-full text-xs font-semibold tracking-widest uppercase mb-4">
-            <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
-            Testimonials
-          </span>
+          <p className="section-eyebrow text-cyan-400 mb-4">Student Stories</p>
           <h2 className="text-3xl sm:text-5xl font-black text-white mb-4 tracking-tight">
             What people are <span className="text-cyan-400">saying</span>
           </h2>
-          <p className="text-blue-300 text-sm max-w-md mx-auto leading-relaxed">
+          <p className="text-blue-100 text-[15px] max-w-md mx-auto leading-[1.8]">
             Hear from students, parents, and educators who have experienced RoboFlight firsthand.
           </p>
         </div>
@@ -95,9 +85,9 @@ export default function Testimonials() {
                     <Image src={t.image} alt={t.name} fill className="object-cover" sizes="80px" />
                   </div>
                   <div>
-                    <p className="text-white font-semibold text-sm">{t.name}</p>
-                    <p className="text-cyan-400 text-xs font-medium">{t.role}</p>
-                    <p className="text-blue-400 text-xs mt-0.5">{t.school}</p>
+                    <p className="text-white font-semibold text-base">{t.name}</p>
+                    <p className="text-cyan-300 text-sm font-medium">{t.role}</p>
+                    <p className="text-blue-200 text-sm mt-0.5">{t.school}</p>
                     <div className="flex gap-0.5 mt-2">
                       {[...Array(5)].map((_, i) => (
                         <svg key={i} className="w-3.5 h-3.5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
@@ -108,7 +98,7 @@ export default function Testimonials() {
                   </div>
                 </div>
 
-                <blockquote className="text-white/80 text-sm sm:text-base lg:text-lg leading-relaxed font-light italic relative z-10">
+                <blockquote className="text-white/90 text-base sm:text-lg lg:text-xl leading-[1.8] font-normal italic relative z-10">
                   &ldquo;{t.quote}&rdquo;
                 </blockquote>
               </div>
@@ -149,11 +139,11 @@ export default function Testimonials() {
                     <Image src={item.image} alt={item.name} fill className="object-cover" sizes="28px" />
                   </div>
                   <div>
-                    <p className={`text-[10px] sm:text-xs font-semibold ${i === active ? "text-white" : "text-white/60"}`}>{item.name}</p>
-                    <p className="text-[9px] sm:text-[10px] text-blue-400">{item.role}</p>
+                    <p className={`text-xs font-semibold ${i === active ? "text-white" : "text-white/75"}`}>{item.name}</p>
+                    <p className="text-[11px] text-blue-200">{item.role}</p>
                   </div>
                 </div>
-                <p className="text-white/40 text-[10px] sm:text-[11px] leading-relaxed line-clamp-2">{item.quote}</p>
+                <p className="text-white/65 text-xs leading-relaxed line-clamp-2">{item.quote}</p>
               </button>
             ))}
           </div>

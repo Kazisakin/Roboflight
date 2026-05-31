@@ -9,27 +9,6 @@ export function FlyingDrone() {
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden">
 
-      {/* Trail path */}
-      <svg className="absolute inset-0 w-full h-full" viewBox="0 0 1440 900"
-        preserveAspectRatio="xMidYMid slice" fill="none">
-        <path
-          d="M 1380 140 C 1200 80, 900 260, 720 180 C 540 100, 320 240, 60 200"
-          stroke="url(#trailGrad)" strokeWidth="2.5" strokeDasharray="12 8"
-          strokeLinecap="round" opacity="0.5"
-          style={{
-            strokeDashoffset: 0,
-            animation: "dash-draw 3.5s ease-out forwards",
-          }}
-        />
-        <defs>
-          <linearGradient id="trailGrad" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stopColor="#22d3ee" stopOpacity="0" />
-            <stop offset="50%" stopColor="#38bdf8" stopOpacity="0.8" />
-            <stop offset="100%" stopColor="#7dd3fc" stopOpacity="0.2" />
-          </linearGradient>
-        </defs>
-      </svg>
-
       {/* Drone body */}
       <div className="absolute" style={{ top: "13%", right: "9%", animation: "fly-across 10s ease-in-out infinite" }}>
         <svg width="90" height="90" viewBox="0 0 90 90" fill="none">
@@ -60,8 +39,8 @@ export function FlyingDrone() {
         </svg>
       </div>
 
-      {/* Small secondary drone — bottom left */}
-      <div className="absolute" style={{ bottom: "18%", left: "6%", animation: "drift 8s ease-in-out infinite", animationDelay: "2s", opacity: 0.6 }}>
+      {/* Small secondary drone — bottom left (hidden on mobile/tablet) */}
+      <div className="absolute hidden lg:block" style={{ bottom: "18%", left: "6%", animation: "drift 8s ease-in-out infinite", animationDelay: "2s", opacity: 0.6 }}>
         <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
           {[[12,12,19,19],[36,12,29,19],[12,36,19,29],[36,36,29,29]].map(([x1,y1,x2,y2],i) => (
             <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#93c5fd" strokeWidth="2" strokeLinecap="round"/>
@@ -87,7 +66,7 @@ export function FlyingDrone() {
 ───────────────────────────────────────────── */
 export function FloatingLightbulb({ className = "" }: { className?: string }) {
   return (
-    <div className={`pointer-events-none select-none ${className}`}
+    <div className={`pointer-events-none select-none hidden lg:block ${className}`}
       style={{ animation: "drift 7s ease-in-out infinite" }}>
       <svg width="110" height="130" viewBox="0 0 110 130" fill="none">
         <defs>
@@ -150,17 +129,9 @@ export function FloatingLightbulb({ className = "" }: { className?: string }) {
 ───────────────────────────────────────────── */
 export function FloatingCrystal({ className = "" }: { className?: string }) {
   return (
-    <div className={`pointer-events-none select-none ${className}`}
+    <div className={`pointer-events-none select-none hidden lg:block ${className}`}
       style={{ animation: "drift2 9s ease-in-out infinite" }}>
       <div className="relative">
-        {/* Dashed arc behind */}
-        <svg className="absolute -bottom-4 -left-8" width="150" height="60" viewBox="0 0 150 60" fill="none">
-          <path d="M 0 50 Q 50 5 100 25 Q 130 40 150 15"
-            stroke="white" strokeWidth="1.8" strokeDasharray="8 6"
-            strokeLinecap="round" opacity="0.3"
-            style={{ animation: "dash-draw 2.5s ease-out forwards" }}/>
-        </svg>
-
         <svg width="80" height="96" viewBox="0 0 80 96" fill="none">
           <defs>
             <linearGradient id="gemTop" x1="40" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
@@ -207,7 +178,7 @@ export function FloatingCrystal({ className = "" }: { className?: string }) {
 ───────────────────────────────────────────── */
 export function FloatingRobot({ className = "" }: { className?: string }) {
   return (
-    <div className={`pointer-events-none select-none ${className}`}
+    <div className={`pointer-events-none select-none hidden lg:block ${className}`}
       style={{ animation: "drift 8s ease-in-out infinite" }}>
       <svg width="72" height="96" viewBox="0 0 72 96" fill="none">
         <defs>
@@ -270,9 +241,10 @@ export function FloatingRobot({ className = "" }: { className?: string }) {
 type Variant = "education" | "robotics" | "math";
 
 const ICONS: Record<Variant, Array<{ x: string; y: string; rot: string; delay: string; dur: string; scale?: number; color: string; node: React.ReactNode }>> = {
+  /* 4 icons per set — top-left, top-right, bottom-left, bottom-right */
   education: [
     {
-      x: "4%", y: "10%", rot: "-12deg", delay: "0s", dur: "3.5s", color: "white",
+      x: "4%", y: "8%", rot: "-12deg", delay: "0s", dur: "3.5s", color: "white",
       node: (
         <svg width="44" height="50" viewBox="0 0 44 50" fill="none" stroke="white" strokeWidth="2"
           strokeLinecap="round" strokeLinejoin="round" opacity="0.3">
@@ -283,20 +255,7 @@ const ICONS: Record<Variant, Array<{ x: string; y: string; rot: string; delay: s
       ),
     },
     {
-      x: "85%", y: "68%", rot: "8deg", delay: "0.5s", dur: "4s", color: "white",
-      node: (
-        <svg width="50" height="42" viewBox="0 0 50 42" fill="none" stroke="white" strokeWidth="2"
-          strokeLinecap="round" strokeLinejoin="round" opacity="0.25">
-          <rect x="3" y="4" width="44" height="34" rx="3"/>
-          <line x1="25" y1="4" x2="25" y2="38"/>
-          <line x1="9" y1="13" x2="21" y2="13"/><line x1="9" y1="20" x2="21" y2="20"/><line x1="9" y1="27" x2="21" y2="27"/>
-          <line x1="29" y1="13" x2="41" y2="13"/><line x1="29" y1="20" x2="41" y2="20"/>
-          <path d="M3 38 Q3 42 7 42 L43 42 Q47 42 47 38"/>
-        </svg>
-      ),
-    },
-    {
-      x: "80%", y: "7%", rot: "18deg", delay: "1s", dur: "3.8s", color: "#bae6fd",
+      x: "87%", y: "9%", rot: "18deg", delay: "0.6s", dur: "3.8s", color: "#bae6fd",
       node: (
         <svg width="52" height="46" viewBox="0 0 52 46" fill="none" stroke="#bae6fd" strokeWidth="2"
           strokeLinecap="round" strokeLinejoin="round" opacity="0.3">
@@ -307,27 +266,7 @@ const ICONS: Record<Variant, Array<{ x: string; y: string; rot: string; delay: s
       ),
     },
     {
-      x: "40%", y: "4%", rot: "-5deg", delay: "0.3s", dur: "4.2s", color: "white",
-      node: (
-        <svg width="58" height="42" viewBox="0 0 58 42" fill="none" stroke="white" strokeWidth="2"
-          strokeLinecap="round" strokeLinejoin="round" opacity="0.25">
-          <polyline points="4,38 4,4"/>
-          <polyline points="4,38 54,38"/>
-          <polyline points="8,32 18,14 28,24 38,8 50,20"/>
-          <circle cx="50" cy="20" r="2.5" fill="white" opacity="0.5"/>
-        </svg>
-      ),
-    },
-    {
-      x: "58%", y: "6%", rot: "0deg", delay: "0.8s", dur: "3.6s", color: "#e0f2fe",
-      node: (
-        <svg width="64" height="38" viewBox="0 0 64 38" fill="none" opacity="0.28">
-          <text x="2" y="28" fontFamily="Georgia,serif" fontSize="26" fontWeight="bold" fill="#e0f2fe">x+y²=</text>
-        </svg>
-      ),
-    },
-    {
-      x: "16%", y: "78%", rot: "22deg", delay: "1.4s", dur: "4.5s", color: "#7dd3fc",
+      x: "7%", y: "76%", rot: "22deg", delay: "1.1s", dur: "4.2s", color: "#7dd3fc",
       node: (
         <svg width="44" height="44" viewBox="0 0 44 44" fill="none" stroke="#7dd3fc" strokeWidth="2"
           strokeLinecap="round" strokeLinejoin="round" opacity="0.28">
@@ -336,11 +275,23 @@ const ICONS: Record<Variant, Array<{ x: string; y: string; rot: string; delay: s
         </svg>
       ),
     },
+    {
+      x: "84%", y: "74%", rot: "8deg", delay: "1.6s", dur: "4s", color: "white",
+      node: (
+        <svg width="50" height="42" viewBox="0 0 50 42" fill="none" stroke="white" strokeWidth="2"
+          strokeLinecap="round" strokeLinejoin="round" opacity="0.22">
+          <rect x="3" y="4" width="44" height="34" rx="3"/>
+          <line x1="25" y1="4" x2="25" y2="38"/>
+          <line x1="9" y1="13" x2="21" y2="13"/><line x1="9" y1="20" x2="21" y2="20"/>
+          <line x1="29" y1="13" x2="41" y2="13"/><line x1="29" y1="20" x2="41" y2="20"/>
+        </svg>
+      ),
+    },
   ],
 
   robotics: [
     {
-      x: "5%", y: "14%", rot: "-10deg", delay: "0s", dur: "3.8s", color: "#bae6fd",
+      x: "5%", y: "10%", rot: "-10deg", delay: "0s", dur: "3.8s", color: "#bae6fd",
       node: (
         <svg width="52" height="48" viewBox="0 0 52 48" fill="none" stroke="#bae6fd" strokeWidth="2"
           strokeLinecap="round" strokeLinejoin="round" opacity="0.3">
@@ -354,7 +305,7 @@ const ICONS: Record<Variant, Array<{ x: string; y: string; rot: string; delay: s
       ),
     },
     {
-      x: "80%", y: "8%", rot: "22deg", delay: "0.7s", dur: "4.2s", color: "white",
+      x: "84%", y: "8%", rot: "22deg", delay: "0.7s", dur: "4.2s", color: "white",
       node: (
         <svg width="38" height="56" viewBox="0 0 38 56" fill="none" stroke="white" strokeWidth="2"
           strokeLinecap="round" strokeLinejoin="round" opacity="0.28">
@@ -367,37 +318,7 @@ const ICONS: Record<Variant, Array<{ x: string; y: string; rot: string; delay: s
       ),
     },
     {
-      x: "46%", y: "80%", rot: "-4deg", delay: "1.1s", dur: "4s", color: "#7dd3fc",
-      node: (
-        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="#7dd3fc" strokeWidth="2"
-          strokeLinecap="round" strokeLinejoin="round" opacity="0.3">
-          <rect x="8" y="12" width="32" height="26" rx="5"/>
-          <circle cx="18" cy="23" r="4"/><circle cx="30" cy="23" r="4"/>
-          <circle cx="18" cy="23" r="2" fill="#38bdf8" opacity="0.6"/>
-          <circle cx="30" cy="23" r="2" fill="#38bdf8" opacity="0.6"/>
-          <path d="M16 33 Q24 37 32 33" strokeLinejoin="round"/>
-          <line x1="24" y1="12" x2="24" y2="8"/><circle cx="24" cy="6" r="2.5"/>
-          <line x1="8" y1="25" x2="4" y2="25"/><line x1="40" y1="25" x2="44" y2="25"/>
-        </svg>
-      ),
-    },
-    {
-      x: "74%", y: "74%", rot: "14deg", delay: "0.4s", dur: "3.6s", color: "white",
-      node: (
-        <svg width="52" height="52" viewBox="0 0 52 52" fill="none" stroke="white" strokeWidth="2"
-          strokeLinecap="round" strokeLinejoin="round" opacity="0.25">
-          <rect x="19" y="19" width="14" height="14" rx="3"/>
-          <line x1="19" y1="19" x2="10" y2="10"/><line x1="33" y1="19" x2="42" y2="10"/>
-          <line x1="19" y1="33" x2="10" y2="42"/><line x1="33" y1="33" x2="42" y2="42"/>
-          <ellipse cx="10" cy="10" rx="8" ry="3" transform="rotate(-45 10 10)" opacity="0.7"/>
-          <ellipse cx="42" cy="10" rx="8" ry="3" transform="rotate(45 42 10)" opacity="0.7"/>
-          <ellipse cx="10" cy="42" rx="8" ry="3" transform="rotate(45 10 42)" opacity="0.7"/>
-          <ellipse cx="42" cy="42" rx="8" ry="3" transform="rotate(-45 42 42)" opacity="0.7"/>
-        </svg>
-      ),
-    },
-    {
-      x: "10%", y: "76%", rot: "0deg", delay: "1.7s", dur: "4.4s", color: "#e0f2fe",
+      x: "7%", y: "75%", rot: "0deg", delay: "1.2s", dur: "4.4s", color: "#e0f2fe",
       node: (
         <svg width="52" height="52" viewBox="0 0 52 52" fill="none" stroke="#e0f2fe" strokeWidth="2"
           strokeLinecap="round" strokeLinejoin="round" opacity="0.25">
@@ -409,10 +330,15 @@ const ICONS: Record<Variant, Array<{ x: string; y: string; rot: string; delay: s
       ),
     },
     {
-      x: "54%", y: "5%", rot: "-2deg", delay: "0.6s", dur: "3.9s", color: "#bae6fd",
+      x: "83%", y: "78%", rot: "-4deg", delay: "1.8s", dur: "4s", color: "#7dd3fc",
       node: (
-        <svg width="62" height="36" viewBox="0 0 62 36" fill="none" opacity="0.3">
-          <text x="2" y="28" fontFamily="Georgia,serif" fontSize="24" fontWeight="bold" fill="#bae6fd">x+y²=</text>
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="#7dd3fc" strokeWidth="2"
+          strokeLinecap="round" strokeLinejoin="round" opacity="0.3">
+          <rect x="8" y="12" width="32" height="26" rx="5"/>
+          <circle cx="18" cy="23" r="4"/><circle cx="30" cy="23" r="4"/>
+          <path d="M16 33 Q24 37 32 33" strokeLinejoin="round"/>
+          <line x1="24" y1="12" x2="24" y2="8"/><circle cx="24" cy="6" r="2.5"/>
+          <line x1="8" y1="25" x2="4" y2="25"/><line x1="40" y1="25" x2="44" y2="25"/>
         </svg>
       ),
     },
@@ -424,7 +350,7 @@ const ICONS: Record<Variant, Array<{ x: string; y: string; rot: string; delay: s
 export function SketchyIcons({ variant = "education" }: { variant?: Variant }) {
   const icons = ICONS[variant] || ICONS.education;
   return (
-    <div className="absolute inset-0 pointer-events-none overflow-hidden">
+    <div className="absolute inset-0 pointer-events-none overflow-hidden hidden lg:block">
       {icons.map((item, i) => (
         <div
           key={i}

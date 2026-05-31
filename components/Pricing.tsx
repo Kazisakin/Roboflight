@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useRef, useState } from "react";
 import { useInView } from "@/hooks/useInView";
 import { SketchyIcons, FloatingCrystal } from "@/components/SceneDecorations";
@@ -90,15 +89,7 @@ export default function Pricing() {
   const { pieces, burst } = useBurst();
 
   return (
-    <section id="pricing" className="py-16 sm:py-24 relative overflow-hidden bg-blue-950">
-      {/* Background image */}
-      <div className="absolute inset-0">
-        <Image src="/gallery-7.jpg" alt="Children learning robotics" fill className="object-cover object-center" sizes="100vw" quality={80} />
-        <div className="absolute inset-0 bg-blue-950/88" />
-      </div>
-
-      <div className="absolute top-0 left-1/3 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-blue-600/15 rounded-full blur-3xl pointer-events-none" />
+    <section id="pricing" className="py-16 sm:py-24 relative overflow-hidden section-parallax">
 
       {/* Sketchy education icons + floating crystal */}
       <SketchyIcons variant="education" />
@@ -106,14 +97,11 @@ export default function Pricing() {
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6">
         <div ref={ref} className="text-center mb-10 sm:mb-14">
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-white/10 border border-white/15 text-cyan-300 rounded-full text-xs font-semibold tracking-widest uppercase mb-4">
-            <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
-            Transparent Pricing
-          </span>
+          <p className="section-eyebrow text-cyan-400 mb-4">Transparent Pricing</p>
           <h2 className={`text-3xl sm:text-5xl font-black text-white mb-4 tracking-tight transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
             Simple, Affordable <span className="text-cyan-400">Pricing</span>
           </h2>
-          <p className={`text-blue-300 text-sm max-w-md mx-auto leading-relaxed transition-all duration-700 delay-100 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+          <p className={`text-blue-100 text-[15px] max-w-md mx-auto leading-[1.8] transition-all duration-700 delay-100 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
             Invest in your child&apos;s future. Every kit, every lesson, every breakthrough — included.
           </p>
         </div>
@@ -142,19 +130,19 @@ export default function Pricing() {
                   <span className={`${plan.featured ? "text-blue-950" : "text-cyan-400"}`}>{plan.icon}</span>
                 </div>
 
-                <h3 className={`text-sm font-bold mb-4 sm:mb-5 uppercase tracking-wider ${plan.featured ? "text-blue-900" : "text-white/60"}`}>
+                <h3 className={`text-sm font-bold mb-4 sm:mb-5 uppercase tracking-wider ${plan.featured ? "text-blue-900" : "text-white/85"}`}>
                   {plan.name}
                 </h3>
 
                 <div className="mb-5 sm:mb-6">
                   <div className="flex items-end gap-1">
                     <span className={`text-4xl sm:text-5xl font-black leading-none ${plan.featured ? "text-blue-950" : "text-white"}`}>${plan.price}</span>
-                    <span className={`text-sm mb-1.5 font-medium ${plan.featured ? "text-blue-900/60" : "text-white/40"}`}>/month</span>
+                    <span className={`text-sm mb-1.5 font-medium ${plan.featured ? "text-blue-900/75" : "text-white/65"}`}>/month</span>
                   </div>
-                  <p className={`text-xs mt-1 ${plan.featured ? "text-blue-900/60" : "text-white/30"}`}>No hidden fees · Kit included</p>
+                  <p className={`text-sm mt-1 ${plan.featured ? "text-blue-900/70" : "text-white/60"}`}>No hidden fees · Kit included</p>
                 </div>
 
-                <ul className="flex flex-col gap-2.5 sm:gap-3 mb-6 sm:mb-8">
+                <ul className="flex flex-col gap-3 mb-6 sm:mb-8">
                   {plan.features.map((feature) => (
                     <li key={feature} className="flex items-center gap-2.5">
                       <div className={`w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0 ${plan.featured ? "bg-blue-950/20" : "bg-cyan-400/20"}`}>
@@ -162,7 +150,7 @@ export default function Pricing() {
                           <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                         </svg>
                       </div>
-                      <span className={`text-xs font-medium ${plan.featured ? "text-blue-900" : "text-white/70"}`}>{feature}</span>
+                      <span className={`text-sm font-medium ${plan.featured ? "text-blue-900" : "text-white/90"}`}>{feature}</span>
                     </li>
                   ))}
                 </ul>
@@ -208,7 +196,7 @@ export default function Pricing() {
               <svg className="w-4 h-4 text-cyan-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d={item.icon} />
               </svg>
-              <span className="text-white/50 text-xs">{item.text}</span>
+              <span className="text-white/75 text-sm">{item.text}</span>
             </div>
           ))}
         </div>

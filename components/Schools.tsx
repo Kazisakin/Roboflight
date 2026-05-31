@@ -14,19 +14,15 @@ export default function Schools() {
 
   return (
     <section className="py-16 sm:py-24 relative overflow-hidden" style={{ background: "linear-gradient(135deg, #eff6ff 0%, #e0f2fe 60%, #ecfeff 100%)" }}>
-      <div className="absolute top-1/4 right-0 w-64 h-64 bg-blue-200/30 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-1/4 w-72 h-72 bg-cyan-200/30 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
 
         <div ref={ref} className="text-center mb-12 sm:mb-16">
-          <p className={`text-xs font-bold tracking-widest uppercase text-blue-600 mb-3 transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
-            Where We Teach
-          </p>
+          <p className={`section-eyebrow text-blue-500 transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>Where We Teach</p>
           <h2 className={`text-3xl sm:text-5xl font-black text-slate-900 tracking-tight mb-3 transition-all duration-700 delay-75 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
             Partner <span style={{ background: "linear-gradient(135deg, #0ea5e9, #22d3ee)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>Schools</span>
           </h2>
-          <p className={`text-slate-500 text-sm max-w-md mx-auto transition-all duration-700 delay-100 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+          <p className={`text-slate-600 text-[15px] max-w-md mx-auto leading-[1.8] transition-all duration-700 delay-100 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
             RoboFlight is active in schools across New Brunswick, bringing STEM education where it matters most.
           </p>
         </div>
@@ -50,9 +46,9 @@ export default function Schools() {
                 <span className="text-green-600 text-[10px] font-semibold uppercase tracking-wide">Active</span>
               </div>
 
-              <h3 className="text-sm font-semibold text-slate-900 mb-1">{school.name}</h3>
+              <h3 className="text-base font-bold text-slate-900 mb-1">{school.name}</h3>
 
-              <div className="flex items-center gap-1 text-slate-400 text-xs mb-3">
+              <div className="flex items-center gap-1 text-slate-500 text-sm mb-3">
                 <svg className="w-3 h-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                   <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -60,7 +56,7 @@ export default function Schools() {
                 {school.location}
               </div>
 
-              <p className="text-slate-400 text-xs leading-relaxed">{school.description}</p>
+              <p className="text-slate-500 text-sm leading-[1.7]">{school.description}</p>
             </div>
           ))}
         </div>
@@ -77,7 +73,7 @@ export default function Schools() {
                 style={{ background: i % 2 === 0 ? "linear-gradient(135deg, #0ea5e9, #22d3ee)" : "linear-gradient(135deg, #3b82f6, #38bdf8)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
                 {item.value}
               </p>
-              <p className="text-slate-400 text-xs">{item.label}</p>
+              <p className="text-slate-500 text-sm">{item.label}</p>
             </div>
           ))}
         </div>

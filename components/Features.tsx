@@ -50,20 +50,17 @@ export default function Features() {
 
   return (
     <section className="py-16 sm:py-24 bg-white relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-96 h-96 bg-sky-50 rounded-full translate-x-1/2 -translate-y-1/2 blur-3xl pointer-events-none" />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         <div ref={ref} className="text-center mb-12 sm:mb-16">
-          <p className={`text-xs font-black tracking-widest uppercase text-blue-500 mb-3 transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
-            Why RoboFlight?
-          </p>
+          <p className={`section-eyebrow text-blue-500 transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>Why RoboFlight</p>
           <h2 className={`text-3xl sm:text-5xl font-black text-slate-900 tracking-tight transition-all duration-700 delay-75 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
             Built for young{" "}
             <span style={{ background: "linear-gradient(135deg, #0ea5e9, #22d3ee)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>innovators</span>
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-7 sm:gap-6">
           {features.map((f, i) => (
             <div
               key={f.title}
@@ -78,8 +75,8 @@ export default function Features() {
               </div>
               {/* Content */}
               <div className="p-5">
-                <h3 className="text-base font-black text-slate-900 mb-2">{f.title}</h3>
-                <p className="text-slate-500 text-sm leading-relaxed">{f.description}</p>
+                <h3 className="text-[17px] font-black text-slate-900 mb-2">{f.title}</h3>
+                <p className="text-slate-600 text-[15px] leading-[1.75]">{f.description}</p>
               </div>
             </div>
           ))}

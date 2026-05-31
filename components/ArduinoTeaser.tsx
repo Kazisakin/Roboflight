@@ -48,12 +48,7 @@ export default function ArduinoTeaser() {
 
   return (
     <>
-      <section className="py-16 sm:py-24 relative overflow-hidden bg-gradient-to-br from-blue-950 via-blue-900 to-indigo-950">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-cyan-500/12 rounded-full translate-x-1/2 -translate-y-1/2 blur-[100px]" />
-          <div className="absolute bottom-0 left-0 w-72 h-72 bg-blue-500/10 rounded-full blur-[80px]" />
-        </div>
-
+      <section className="py-16 sm:py-24 relative overflow-hidden section-parallax">
         {/* Sketchy icons + crystal */}
         <SketchyIcons variant="robotics" />
         <FloatingCrystal className="absolute bottom-12 left-8 z-10 opacity-80" />
@@ -63,12 +58,12 @@ export default function ArduinoTeaser() {
 
             {/* Left */}
             <div className={`transition-all duration-700 ${isInView ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-8"}`}>
-              <p className="text-xs font-black tracking-widest uppercase text-cyan-400 mb-3">Try It Yourself</p>
+              <p className="section-eyebrow-left text-cyan-400">Try It Yourself</p>
               <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-4 leading-tight">
                 Build Your Own{" "}
                 <span className="text-cyan-400">Arduino Robot Car</span>
               </h2>
-              <p className="text-white/50 text-sm leading-relaxed mb-8">
+              <p className="text-white/80 text-[15px] leading-[1.8] mb-8">
                 Our interactive step-by-step guide lets kids build a real working robot car — with checklists, wiring diagrams, and real Arduino code.
               </p>
 
@@ -80,7 +75,7 @@ export default function ArduinoTeaser() {
                     style={{ transitionDelay: `${i * 60 + 200}ms` }}
                   >
                     <span className={`w-5 h-5 rounded-full bg-gradient-to-br ${s.color} flex items-center justify-center text-[10px] font-bold text-white flex-shrink-0`}>{s.id}</span>
-                    <span className="text-white/60 text-xs font-medium">{s.label}</span>
+                    <span className="text-white/80 text-sm font-medium">{s.label}</span>
                   </div>
                 ))}
               </div>
