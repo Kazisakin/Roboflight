@@ -1,7 +1,7 @@
 {
-  "name": "RoboFlight — Robotics, Coding & Circuitry",
+  "name": "RoboFlight \u2014 Robotics & Coding Classes for Kids, Fredericton",
   "short_name": "RoboFlight",
-  "description": "Hands-on robotics, drone, and coding courses for kids across New Brunswick, Canada.",
+  "description": "Hands-on robotics, coding, drone and RC plane classes for kids in Fredericton, NB.",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",
@@ -16,8 +16,8 @@
       "purpose": "maskable"
     }
   ],
-  "theme_color": "#1e3a8a",
-  "background_color": "#1e3a8a",
+  "theme_color": "#0a1530",
+  "background_color": "#0a1530",
   "display": "standalone",
   "start_url": "/"
 }

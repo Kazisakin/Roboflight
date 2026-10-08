@@ -1,165 +1,194 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import Logo from "@/components/Logo";
+import { Arrow } from "@/components/ui";
+import { programs } from "@/lib/programs";
+import ProgramIcon, { accentCls } from "@/components/ProgramIcon";
+import { site } from "@/lib/site";
 
-const navLinks = [
-  { label: "Home",     href: "#home" },
-  { label: "About",    href: "#about" },
-  { label: "Programs", href: "#programs" },
-  { label: "Pricing",  href: "#pricing" },
-  { label: "Contact",  href: "#contact" },
+const links = [
+  { label: "Home",    href: "/",         id: "home" },
+  { label: "Hours",   href: "/#hours",   id: "hours" },
+  { label: "Gallery", href: "/#gallery", id: "gallery" },
+  { label: "FAQ",     href: "/faq",      id: "faq" },
+  { label: "Contact", href: "/#contact", id: "contact" },
 ];
 
-export default function Navbar() {
-  const [scrolled, setScrolled]       = useState(false);
-  const [mobileOpen, setMobileOpen]   = useState(false);
-  const [activeSection, setActiveSection] = useState("home");
-  const [pillStyle, setPillStyle]     = useState({ left: 0, width: 0 });
-  const navRef  = useRef<HTMLDivElement>(null);
-  const itemRefs = useRef<(HTMLButtonElement | null)[]>([]);
+function PhoneIcon({ className = "h-3.5 w-3.5" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.12.9.33 1.78.62 2.63a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.85.29 1.73.5 2.63.62A2 2 0 0122 16.92z" />
+    </svg>
+  );
+}
 
-  /* ── Active section tracker ── */
+export default function Navbar() {
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+  const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [progOpen, setProgOpen] = useState(false);
+  const [active, setActive] = useState(isHome ? "home" : "");
+  const progRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 24);
-      const ids = navLinks.map(l => l.href.replace("#", ""));
-      for (const id of [...ids].reverse()) {
+      if (!isHome) return;
+      let current = "home";
+      for (const id of ["programs", ...links.map((l) => l.id)]) {
         const el = document.getElementById(id);
-        if (el && el.getBoundingClientRect().top <= 120) {
-          setActiveSection(id);
-          return;
-        }
+        if (el && el.getBoundingClientRect().top <= 170) current = id;
       }
-      setActiveSection("home");
+      setActive(current);
     };
+    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [isHome]);
 
-  /* ── Sliding pill position ── */
   useEffect(() => {
-    const idx = navLinks.findIndex(l => l.href.replace("#", "") === activeSection);
-    const btn = itemRefs.current[idx];
-    if (btn && navRef.current) {
-      const navRect = navRef.current.getBoundingClientRect();
-      const btnRect = btn.getBoundingClientRect();
-      setPillStyle({ left: btnRect.left - navRect.left, width: btnRect.width });
-    }
-  }, [activeSection]);
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [open]);
 
-  const scrollTo = (href: string) => {
-    setMobileOpen(false);
-    const el = document.getElementById(href.replace("#", ""));
-    if (el) el.scrollIntoView({ behavior: "smooth" });
-  };
+  // Close the Programs dropdown on outside click / Escape
+  useEffect(() => {
+    if (!progOpen) return;
+    const onDown = (e: MouseEvent) => { if (!progRef.current?.contains(e.target as Node)) setProgOpen(false); };
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setProgOpen(false); };
+    document.addEventListener("mousedown", onDown);
+    document.addEventListener("keydown", onKey);
+    return () => { document.removeEventListener("mousedown", onDown); document.removeEventListener("keydown", onKey); };
+  }, [progOpen]);
+
+  const progActive = pathname.startsWith("/programs") || active === "programs";
+  const linkCls = (on: boolean) =>
+    `relative rounded-full px-3.5 py-2 text-[15px] font-semibold transition-colors ${on ? "bg-white/[0.12] text-white" : "text-white/75 hover:bg-white/[0.06] hover:text-white"}`;
+  const underline = (on: boolean) => (on ? "hidden" : "hidden");
 
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled
-          ? "backdrop-blur-xl shadow-xl shadow-blue-950/40 border-b border-cyan-400/10"
-          : "bg-transparent"
-      }`}
-      style={scrolled ? { background: "linear-gradient(135deg, rgba(7,26,82,0.97), rgba(12,38,108,0.97))" } : {}}
-    >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="flex items-center justify-between h-16 md:h-[70px]">
+    <div className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-4 sm:pt-4">
+      <header
+        className={`mx-auto max-w-6xl border border-white/15 text-white backdrop-blur-xl transition-all duration-300 ${open ? "rounded-3xl" : "rounded-[2rem]"} ${
+          scrolled || open ? "bg-[#0a1530]/92 shadow-[0_16px_44px_rgba(10,21,48,0.45)]" : "bg-[#0a1530]/80 shadow-[0_12px_36px_rgba(10,21,48,0.3)]"
+        }`}
+      >
+        <div className="pl-5 pr-2 sm:pl-6">
+          <div className={`flex items-center justify-between gap-4 transition-all duration-300 ${scrolled ? "h-[60px]" : "h-[66px]"}`}>
+            <Link href="/" className="shrink-0" aria-label="RoboFlight — Home" onClick={() => setOpen(false)}>
+              <Logo variant="white" size="md" />
+            </Link>
 
-          {/* Logo */}
-          <Link
-            href="#home"
-            onClick={() => scrollTo("#home")}
-            className="flex-shrink-0 transition-opacity duration-200 hover:opacity-80"
-          >
-            <Logo variant="white" size="sm" />
-          </Link>
+            <nav aria-label="Main navigation" className="hidden items-center gap-0.5 lg:flex">
+              <Link href="/" className={`group ${linkCls(active === "home" && isHome)}`}>
+                Home<span aria-hidden="true" className={`${underline(active === "home" && isHome)} group-hover:scale-x-100`} />
+              </Link>
 
-          {/* Desktop nav */}
-          <div ref={navRef} className="hidden md:flex items-center relative">
-            {/* Sliding pill */}
-            <div
-              className="absolute h-8 bg-white/10 rounded-full transition-all duration-300 ease-out pointer-events-none"
-              style={{ left: pillStyle.left, width: pillStyle.width }}
-            />
-
-            {navLinks.map((link, i) => {
-              const isActive = activeSection === link.href.replace("#", "");
-              return (
+              {/* Programs dropdown */}
+              <div ref={progRef} className="relative" onMouseEnter={() => setProgOpen(true)} onMouseLeave={() => setProgOpen(false)}>
                 <button
-                  key={link.label}
-                  ref={el => { itemRefs.current[i] = el; }}
-                  onClick={() => scrollTo(link.href)}
-                  className={`relative px-4 py-1.5 text-sm font-medium tracking-wide transition-colors duration-200 cursor-pointer rounded-full ${
-                    isActive ? "text-cyan-300" : "text-white/60 hover:text-white"
-                  }`}
+                  type="button"
+                  className={`group flex cursor-pointer items-center gap-1 ${linkCls(progActive)}`}
+                  aria-expanded={progOpen}
+                  aria-haspopup="true"
+                  onClick={() => setProgOpen((o) => !o)}
                 >
-                  {link.label}
+                  Programs
+                  <svg className={`h-3.5 w-3.5 transition-transform ${progOpen ? "rotate-180" : ""}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" d="M6 9l6 6 6-6" /></svg>
+                  <span aria-hidden="true" className={`${underline(progActive)} group-hover:scale-x-100`} />
                 </button>
-              );
-            })}
+                <div className={`absolute left-1/2 top-full w-[340px] -translate-x-1/2 pt-3 transition-all duration-200 ${progOpen ? "visible translate-y-0 opacity-100" : "invisible -translate-y-1 opacity-0"}`}>
+                  <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white p-2 shadow-[0_20px_50px_rgba(10,21,48,0.18)]">
+                    {programs.map((p) => (
+                      <Link key={p.slug} href={`/programs/${p.slug}`} onClick={() => setProgOpen(false)} className="group/item flex gap-4 rounded-xl p-3 transition hover:bg-slate-50">
+                        <span className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${accentCls[p.accent].tile}`}><ProgramIcon name={p.icon} className="h-5 w-5" /></span>
+                        <span>
+                          <span className="block text-sm font-semibold text-[#0f172a] group-hover/item:text-[#2563eb]">{p.title}</span>
+                          <span className={`mt-0.5 block text-[11px] font-bold uppercase tracking-[0.16em] ${accentCls[p.accent].age}`}>{p.ages}</span>
+                          <span className="mt-0.5 block text-xs leading-relaxed text-slate-500">{p.build}</span>
+                        </span>
+                      </Link>
+                    ))}
+                    <Link href="/build" onClick={() => setProgOpen(false)} className="mt-1 flex items-center justify-between rounded-xl bg-slate-50 px-4 py-3 text-xs font-semibold text-[#0f172a] transition hover:text-[#2563eb]">
+                      Try the free online robot builder <Arrow className="h-3.5 w-3.5" />
+                    </Link>
+                  </div>
+                </div>
+              </div>
 
-            {/* CTA */}
-            <button
-              onClick={() => scrollTo("#contact")}
-              className="ml-4 inline-flex items-center gap-1.5 px-6 py-2.5 font-black text-sm rounded-2xl transition-all duration-200 hover:scale-110 shadow-lg shadow-cyan-500/30 cursor-pointer text-blue-950"
-              style={{ background: "linear-gradient(135deg, #22d3ee, #38bdf8)" }}
-            >
-              <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
-                <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 00-2.91-.09z"/>
-                <path d="m12 15-3-3a22 22 0 012-3.95A12.88 12.88 0 0122 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 01-4 2z"/>
-              </svg>
-              Enrol Now
-            </button>
-          </div>
+              {links.slice(1).map((l) => {
+                const on = (isHome && active === l.id) || pathname === l.href;
+                return (
+                  <Link key={l.id} href={l.href} className={`group ${linkCls(on)}`}>
+                    {l.label}<span aria-hidden="true" className={`${underline(on)} group-hover:scale-x-100`} />
+                  </Link>
+                );
+              })}
+            </nav>
 
-          {/* Mobile hamburger */}
-          <button
-            onClick={() => setMobileOpen(o => !o)}
-            className="md:hidden w-10 h-10 flex flex-col items-center justify-center gap-[5px] rounded-xl hover:bg-white/10 transition-colors cursor-pointer"
-            aria-label="Toggle menu"
-          >
-            <span className={`block w-5 h-[2px] bg-white rounded-full transition-all duration-300 origin-center ${mobileOpen ? "rotate-45 translate-y-[7px]" : ""}`} />
-            <span className={`block w-5 h-[2px] bg-white rounded-full transition-all duration-300 ${mobileOpen ? "opacity-0 scale-x-0" : ""}`} />
-            <span className={`block w-5 h-[2px] bg-white rounded-full transition-all duration-300 origin-center ${mobileOpen ? "-rotate-45 -translate-y-[7px]" : ""}`} />
-          </button>
-        </div>
-
-        {/* Mobile menu */}
-        <div
-          className={`md:hidden transition-all duration-300 ease-out overflow-hidden ${mobileOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"}`}
-        >
-          <div className="backdrop-blur-xl rounded-2xl mb-4 p-2 flex flex-col gap-1 border border-cyan-400/15 shadow-2xl" style={{ background: "linear-gradient(135deg, rgba(7,26,82,0.98), rgba(12,38,108,0.98))" }}>
-            {navLinks.map((link) => {
-              const isActive = activeSection === link.href.replace("#", "");
-              return (
-                <button
-                  key={link.label}
-                  onClick={() => scrollTo(link.href)}
-                  className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-left cursor-pointer transition-all duration-200 ${
-                    isActive
-                      ? "text-cyan-300 bg-white/10"
-                      : "text-white/60 hover:text-white hover:bg-white/8"
-                  }`}
-                >
-                  {isActive && <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 flex-shrink-0" />}
-                  {link.label}
-                </button>
-              );
-            })}
-            <div className="px-2 pt-1 pb-1">
-              <button
-                onClick={() => scrollTo("#contact")}
-                className="w-full py-3 font-bold rounded-xl text-sm cursor-pointer transition-all duration-200 hover:scale-105 text-blue-950"
-              style={{ background: "linear-gradient(135deg, #22d3ee, #38bdf8)" }}
+            <div className="flex items-center gap-2">
+              <Link
+                href="/book"
+                className="hidden items-center gap-2 rounded-full bg-[#2563eb] px-5 py-3 text-sm font-semibold text-white shadow-[0_6px_18px_rgba(37,99,235,0.45)] transition hover:bg-[#1d4ed8] sm:inline-flex"
               >
-                Enrol Now
+                Book a free class <Arrow className="h-3.5 w-3.5" />
+              </Link>
+              <button
+                type="button"
+                onClick={() => setOpen((o) => !o)}
+                className="inline-flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-white/20 text-white transition hover:bg-white/10 lg:hidden"
+                aria-label={open ? "Close menu" : "Open menu"}
+                aria-expanded={open}
+              >
+                <span className="relative block h-3 w-5">
+                  <span className={`absolute left-0 block h-[2px] w-5 rounded bg-current transition-all duration-300 ${open ? "top-1.5 rotate-45" : "top-0"}`} />
+                  <span className={`absolute left-0 top-1.5 block h-[2px] w-5 rounded bg-current transition-opacity duration-200 ${open ? "opacity-0" : ""}`} />
+                  <span className={`absolute left-0 block h-[2px] w-5 rounded bg-current transition-all duration-300 ${open ? "top-1.5 -rotate-45" : "top-3"}`} />
+                </span>
               </button>
             </div>
           </div>
         </div>
-      </div>
-    </nav>
+
+        {/* Mobile menu */}
+        <div className={`overflow-y-auto transition-all duration-300 lg:hidden ${open ? "max-h-[calc(100vh-110px)] border-t border-white/10 opacity-100" : "max-h-0 opacity-0"}`}>
+          <nav className="px-5 pb-6 pt-2 sm:px-6">
+            <Link href="/book" onClick={() => setOpen(false)} className="mb-2 mt-2 flex items-center justify-center gap-2 rounded-full bg-[#2563eb] px-6 py-4 text-base font-semibold text-white sm:hidden">
+              Book a free class <Arrow />
+            </Link>
+            <Link href="/" onClick={() => setOpen(false)} className="flex items-baseline gap-4 border-b border-white/10 py-4 text-2xl font-semibold tracking-tight text-white">
+              <span className="text-[11px] font-bold tracking-[0.16em] text-slate-500">01</span>Home
+            </Link>
+            <div className="border-b border-white/10 py-4">
+              <p className="flex items-baseline gap-4 text-2xl font-semibold tracking-tight text-white">
+                <span className="text-[11px] font-bold tracking-[0.16em] text-slate-500">02</span>Programs
+              </p>
+              <div className="mt-3 grid gap-1 pl-9">
+                {programs.map((p) => (
+                  <Link key={p.slug} href={`/programs/${p.slug}`} onClick={() => setOpen(false)} className={`flex items-center gap-3 rounded-lg py-2 text-base font-medium ${pathname === `/programs/${p.slug}` ? "text-[#2563eb]" : "text-slate-200"}`}>
+                    <span className={`flex h-8 w-8 items-center justify-center rounded-lg ${accentCls[p.accent].tile}`}><ProgramIcon name={p.icon} className="h-4 w-4" /></span>
+                    {p.title}
+                    <span className={`ml-auto text-[11px] font-bold uppercase tracking-[0.14em] ${accentCls[p.accent].age}`}>{p.ages}</span>
+                  </Link>
+                ))}
+                <Link href="/build" onClick={() => setOpen(false)} className="rounded-lg py-2 text-base font-medium text-slate-200">Online robot builder</Link>
+              </div>
+            </div>
+            {links.slice(1).map((l, i) => (
+              <Link key={l.id} href={l.href} onClick={() => setOpen(false)} className="flex items-baseline gap-4 border-b border-white/10 py-4 text-2xl font-semibold tracking-tight text-white">
+                <span className="text-[11px] font-bold tracking-[0.16em] text-slate-500">{String(i + 3).padStart(2, "0")}</span>{l.label}
+              </Link>
+            ))}
+            <a href={site.phoneHref} className="mt-6 flex items-center justify-center gap-2 rounded-full border border-white/20 px-6 py-3.5 text-sm font-semibold text-white">
+              <PhoneIcon className="h-4 w-4" /> Call {site.phone}
+            </a>
+          </nav>
+        </div>
+      </header>
+    </div>
   );
 }

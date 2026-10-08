@@ -3,8 +3,9 @@ import Logo from "@/components/Logo";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Terms of Service | RoboFlight",
+  title: "Terms of Service",
   description: "Terms and conditions for using RoboFlight programs and website.",
+  alternates: { canonical: "/terms" },
 };
 
 const sections = [
@@ -69,10 +70,10 @@ const sections = [
 export default function TermsPage() {
   return (
     <div className="min-h-screen bg-slate-50">
-      <header className="bg-blue-950 py-5 px-4 sm:px-6">
+      <header className="bg-[#0a1530] py-5 px-4 sm:px-6">
         <div className="max-w-4xl mx-auto flex items-center justify-between">
           <Link href="/"><Logo variant="white" size="sm" /></Link>
-          <Link href="/" className="text-blue-300 hover:text-white text-xs font-semibold transition-colors flex items-center gap-1.5">
+          <Link href="/" className="text-slate-300 hover:text-white text-xs font-semibold transition-colors flex items-center gap-1.5">
             <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
             </svg>
@@ -83,14 +84,14 @@ export default function TermsPage() {
 
       <main className="max-w-4xl mx-auto px-4 sm:px-6 py-14">
         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-8 sm:p-12">
-          <span className="inline-block px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold tracking-wide uppercase mb-4">Legal</span>
-          <h1 className="text-2xl sm:text-3xl font-bold text-blue-900 mb-2">Terms of Service</h1>
-          <p className="text-gray-400 text-sm mb-10">Last updated: March 2025</p>
+          <span className="inline-block px-3 py-1 bg-[#2563eb]/10 text-[#2563eb] rounded-full text-xs font-semibold tracking-wide uppercase mb-4">Legal</span>
+          <h1 className="t-h2 text-[#0f172a] mb-2">Terms of Service</h1>
+          <p className="text-gray-400 text-sm mb-10">Last updated: October 2026</p>
 
           <div className="space-y-8">
             {sections.map((s, i) => (
               <section key={s.title}>
-                <h2 className="flex items-start gap-3 text-base font-bold text-blue-900 mb-3">
+                <h2 className="t-h4 flex items-start gap-3 text-[#0f172a] mb-3">
                   <span className="flex-shrink-0 w-6 h-6 bg-blue-100 text-blue-700 rounded-lg flex items-center justify-center text-xs font-black">{i + 1}</span>
                   {s.title}
                 </h2>

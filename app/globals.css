@@ -1,303 +1,159 @@
 @import "tailwindcss";
 
+/* ──────────────────────────────────────────────────────────────
+   RoboFlight design tokens
+   Layout & typography follow an editorial style (Manrope, big
+   semibold headings, numbered columns, full-bleed photo bands).
+   Colours are RoboFlight's own navy / blue / cyan palette.
+   ────────────────────────────────────────────────────────────── */
+:root {
+  --ink: #0f172a;          /* headings on light */
+  --navy: #0a1530;         /* dark sections */
+  --navy-2: #0c1a4e;       /* footer */
+  --brand: #2563eb;        /* primary buttons, accents on light */
+  --brand-hover: #1d4ed8;
+  --sky: #38bdf8;          /* accent on dark */
+  --cyan: #22d3ee;
+  --amber: #fbbf24;        /* eyebrow labels on dark */
+}
+
 html {
   scroll-behavior: smooth;
 }
 
-/* ── Global fixed background — dark sections "pass through" this ── */
 body {
-  background: #060d1a;
+  background: #ffffff;
+  color: #334155;
   font-size: 16px;
-  line-height: 1.75;
+  line-height: 1.6;
+  text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Comfortable paragraph reading defaults */
-p { line-height: 1.75; }
-h1, h2, h3, h4 { line-height: 1.15; letter-spacing: -0.02em; }
-
-/* Section headings — minimum readable size on mobile */
-@media (max-width: 639px) {
-  section h2 { font-size: 1.875rem; } /* 30px → same but ensure it's set */
+/* ── Type scale — one source of truth for every heading ─────────
+   t-display : page hero titles (h1)
+   t-h2      : every section heading
+   t-h3      : card / item titles
+   t-h4      : small sub-headings (legal pages)
+   t-lead    : section intro paragraph
+   t-body    : card / list body copy                                  */
+@layer components {
+  .t-display, .t-h2, .t-h3, .t-h4 {
+    font-weight: 600;
+    text-wrap: balance;
+  }
+  .t-display {
+    font-size: clamp(2.5rem, 1.6rem + 3.6vw, 4.25rem);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+  }
+  .t-h2 {
+    font-size: clamp(2rem, 1.55rem + 1.8vw, 3rem);
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+  }
+  .t-h3 {
+    font-size: 1.25rem;
+    line-height: 1.3;
+    letter-spacing: -0.015em;
+  }
+  .t-h4 {
+    font-size: 1.0625rem;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+  }
+  .t-lead {
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    text-wrap: pretty;
+  }
+  @media (min-width: 640px) {
+    .t-lead { font-size: 1.125rem; }
+  }
+  .t-body {
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    text-wrap: pretty;
+  }
 }
 
-/* Readable body text helpers */
-.body-text-dark  { font-size: 1rem; line-height: 1.75; color: rgba(255,255,255,0.82); }
-.body-text-light { font-size: 1rem; line-height: 1.75; color: #475569; } /* slate-600 */
-
-/* ── Section eyebrow label — minimal, no pill/box ──────────────── */
-.section-eyebrow {
-  display: flex;
+/* Eyebrow label on light sections — brand colour with a short rule */
+.section-label {
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
   gap: 0.625rem;
-  font-size: 0.6875rem;   /* 11px */
-  font-weight: 600;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  margin-bottom: 0.875rem;
-}
-.section-eyebrow::before,
-.section-eyebrow::after {
-  content: '';
-  width: 1.25rem;
-  height: 1px;
-  background: currentColor;
-  opacity: 0.35;
-  flex-shrink: 0;
-}
-/* Left-aligned variant — no decorative lines, used inside content blocks */
-.section-eyebrow-left {
-  font-size: 0.6875rem;
-  font-weight: 600;
+  font-size: 0.75rem;
+  font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  margin-bottom: 0.75rem;
+  color: var(--brand);
+}
+.section-label::before {
+  content: "";
+  width: 1.75rem;
+  height: 1px;
+  background: currentColor;
 }
 
-/* ── Section typography scale — consistent across all sections ── */
-.section-heading {
-  font-size: 2rem;
-  line-height: 1.15;
-  font-weight: 900;
-  letter-spacing: -0.025em;
-}
-@media (min-width: 640px)  { .section-heading { font-size: 2.75rem; } }
-@media (min-width: 1024px) { .section-heading { font-size: 3.25rem; } }
+/* Hide scrollbars on horizontal snap rails */
+.scrollbar-none { scrollbar-width: none; }
+.scrollbar-none::-webkit-scrollbar { display: none; }
 
-.section-subtext {
-  font-size: 0.9375rem;
-  line-height: 1.7;
-  max-width: 38rem;
+/* Fixed-background photo bands — iOS/mobile can't do fixed, so scroll there */
+.bg-fixed-photo {
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
 }
-@media (min-width: 640px) { .section-subtext { font-size: 1rem; } }
-
-/* Hide default cursor on non-touch devices — replaced by CustomCursor */
-@media (pointer: fine) {
-  *, *::before, *::after {
-    cursor: none !important;
-  }
+@media (max-width: 1023px), (hover: none) {
+  .bg-fixed-photo { background-attachment: scroll; }
 }
 
-/* Heading font */
-h1, h2, h3, h4, h5, h6,
-.font-heading {
-  font-family: var(--font-jakarta), var(--font-inter), system-ui, sans-serif;
+/* ── Scroll reveal (toggled by <RevealObserver />) ─────────────── */
+.anim-up {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
 }
+.anim-up.is-visible {
+  opacity: 1;
+  transform: none;
+}
+.anim-up.d1 { transition-delay: 0.08s; }
+.anim-up.d2 { transition-delay: 0.16s; }
+.anim-up.d3 { transition-delay: 0.24s; }
+.anim-up.d4 { transition-delay: 0.32s; }
+.anim-up.d5 { transition-delay: 0.45s; }
 
-/* Float animation */
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-20px); }
+/* Hero load-in (no observer needed) */
+@keyframes heroUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: none; }
 }
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(40px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-@keyframes slideInLeft {
-  from { opacity: 0; transform: translateX(-60px); }
-  to   { opacity: 1; transform: translateX(0); }
-}
-@keyframes blob {
-  0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; transform: scale(1) rotate(0deg); }
-  33%       { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; transform: scale(1.05) rotate(60deg); }
-  66%       { border-radius: 20% 60% 60% 40% / 70% 30% 50% 40%; transform: scale(0.95) rotate(120deg); }
-}
-@keyframes shimmer {
-  0%   { background-position: -200% center; }
-  100% { background-position: 200% center; }
-}
-@keyframes pulseGlow {
-  0%, 100% { box-shadow: 0 0 20px rgba(34, 211, 238, 0.3); }
-  50%       { box-shadow: 0 0 50px rgba(56, 189, 248, 0.5); }
-}
-@keyframes bounce-fun {
-  0%, 100% { transform: translateY(0) scale(1); }
-  40%       { transform: translateY(-12px) scale(1.05); }
-  60%       { transform: translateY(-6px) scale(1.02); }
-}
-@keyframes wiggle {
-  0%, 100% { transform: rotate(-3deg); }
-  50%       { transform: rotate(3deg); }
-}
-@keyframes spin-slow {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
-}
-@keyframes star-pop {
-  0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.7; }
-  50%       { transform: scale(1.4) rotate(20deg); opacity: 1; }
-}
-@keyframes drift {
-  0%        { transform: translateX(0)    translateY(0)    rotate(-4deg); }
-  30%       { transform: translateX(18px) translateY(-14px) rotate(2deg); }
-  60%       { transform: translateX(-8px) translateY(-8px)  rotate(-2deg); }
-  100%      { transform: translateX(0)    translateY(0)    rotate(-4deg); }
-}
-@keyframes drift2 {
-  0%        { transform: translateX(0)    translateY(0)    rotate(4deg); }
-  40%       { transform: translateX(-20px) translateY(-16px) rotate(-3deg); }
-  70%       { transform: translateX(10px) translateY(-6px)  rotate(5deg); }
-  100%      { transform: translateX(0)    translateY(0)    rotate(4deg); }
-}
-@keyframes fly-across {
-  0%   { transform: translateX(0) translateY(0); }
-  25%  { transform: translateX(40px) translateY(-18px); }
-  50%  { transform: translateX(20px) translateY(-8px); }
-  75%  { transform: translateX(-10px) translateY(-20px); }
-  100% { transform: translateX(0) translateY(0); }
-}
-@keyframes glow-pulse {
-  0%, 100% { filter: drop-shadow(0 0 6px rgba(255,200,0,0.6)); }
-  50%       { filter: drop-shadow(0 0 18px rgba(255,200,0,0.9)); }
-}
-@keyframes spin-prop {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
-}
-@keyframes dash-draw {
-  from { stroke-dashoffset: 600; }
-  to   { stroke-dashoffset: 0; }
-}
-@keyframes icon-bob {
-  0%, 100% { transform: translateY(0) rotate(var(--r, 0deg)); }
-  50%       { transform: translateY(-8px) rotate(var(--r, 0deg)); }
-}
-@keyframes particle-out {
-  0%   { transform: translate(0, 0) scale(1.2); opacity: 1; }
-  100% { transform: translate(var(--px, 50px), var(--py, -50px)) scale(0); opacity: 0; }
-}
-@keyframes twinkle {
-  0%, 100% { opacity: 0.05; transform: scale(0.5); }
-  50%       { opacity: 0.9; transform: scale(1.5); }
-}
-@keyframes confetti-fall {
-  0%   { transform: translate(0, 0) rotate(0deg); opacity: 1; }
-  100% { transform: translate(var(--cx, 0px), var(--cy, -120px)) rotate(720deg); opacity: 0; }
-}
-@keyframes wiggle-once {
-  0%, 100% { transform: rotate(0deg) scale(1); }
-  20%       { transform: rotate(-4deg) scale(1.02); }
-  50%       { transform: rotate(4deg) scale(1.02); }
-  80%       { transform: rotate(-2deg) scale(1.01); }
-}
-@keyframes bg-pan {
-  0%   { background-position: 0% 50%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-@keyframes circuit-glow {
-  0%, 100% { opacity: 0.07; }
-  50%       { opacity: 0.22; }
-}
-@keyframes node-pulse {
-  0%, 100% { opacity: 0.3; r: 2; }
-  50%       { opacity: 1; r: 4; }
-}
+.hero-up { opacity: 0; animation: heroUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+.hero-up.d1 { animation-delay: 0.1s; }
+.hero-up.d2 { animation-delay: 0.2s; }
+.hero-up.d3 { animation-delay: 0.3s; }
+.hero-up.d5 { animation-delay: 0.6s; }
 
-/* ── Mobile / tablet breathing room ─────────────────────────────────── */
-
-/* All non-desktop screens (< 1024 px) */
-@media (max-width: 1023px) {
-  /* Section vertical padding */
-  section {
-    padding-top: 4.5rem !important;
-    padding-bottom: 4.5rem !important;
-  }
-
-  /* More air beneath section headings */
-  section h2 {
-    margin-bottom: 1.25rem;
-  }
-
-  /* Section-level grids (card grids, not tiny icon rows) —
-     target only grids that are direct children of section containers */
-  section .grid {
-    gap: 2rem;
-  }
-
-  /* Reduce star field — show only first 20 */
-  .hero-stars-container > div:nth-child(n+21) {
-    display: none;
-  }
+/* Scroll indicator line */
+@keyframes scrollDown {
+  0%   { opacity: 0; transform: translateY(-100%); }
+  35%  { opacity: 1; }
+  85%  { opacity: 1; }
+  100% { opacity: 0; transform: translateY(100%); }
 }
+.animate-scroll-down { animation: scrollDown 2.4s ease-in-out infinite; }
 
-/* Phone only (< 640 px) */
-@media (max-width: 639px) {
-  section {
-    padding-top: 3.5rem !important;
-    padding-bottom: 3.5rem !important;
-  }
-
-  /* Wider horizontal breathing room inside containers */
-  section > div {
-    padding-left: 1.25rem;
-    padding-right: 1.25rem;
-  }
-
-  /* A bit more gap between stacked cards */
-  section .grid {
-    gap: 1.75rem;
-  }
-
-  /* Paragraph spacing inside sections */
-  section p {
-    margin-bottom: 0.75rem;
-  }
-
-  /* Bigger tap targets on primary buttons */
-  section button {
-    min-height: 3rem;
-  }
+@keyframes slowZoom {
+  from { transform: scale(1.08); }
+  to   { transform: scale(1); }
 }
+.hero-zoom { animation: slowZoom 2.4s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
 
-/* ── Parallax pass-through — ALL dark sections share one fixed background */
-/* Identical gradient + fixed = viewport stays still, content scrolls over */
-.section-parallax {
-  background: linear-gradient(160deg, #060d1e 0%, #0a1530 55%, #060d1e 100%) !important;
-  background-attachment: fixed !important;
-  background-size: cover !important;
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .anim-up, .hero-up { opacity: 1 !important; transform: none !important; animation: none !important; transition: none !important; }
+  .hero-zoom, .animate-scroll-down { animation: none !important; }
 }
-
-/* Suppress decorative glow/blob animations site-wide */
-.animate-blob,
-.animate-glow-pulse,
-.animate-pulse-glow {
-  animation: none !important;
-  opacity: 0 !important;
-  pointer-events: none !important;
-}
-
-/* ── Decorative icon visibility by breakpoint ─────────────────────── */
-/* Already hidden < 1024px via hidden lg:block on wrapper.              */
-/* Extra reduction at "mid" desktop (1024–1279px): hide xl-only icons   */
-.icon-xl-hide {
-  display: none;
-}
-@media (min-width: 1280px) {
-  .icon-xl-hide {
-    display: block;
-  }
-}
-
-.animate-float          { animation: float 6s ease-in-out infinite; }
-.animate-float-delayed  { animation: float 6s ease-in-out infinite 2s; }
-.animate-blob           { animation: blob 8s ease-in-out infinite; }
-.animate-pulse-glow     { animation: pulseGlow 3s ease-in-out infinite; }
-.animate-bounce-fun     { animation: bounce-fun 2s ease-in-out infinite; }
-.animate-wiggle         { animation: wiggle 2s ease-in-out infinite; }
-.animate-spin-slow      { animation: spin-slow 12s linear infinite; }
-.animate-star-pop       { animation: star-pop 3s ease-in-out infinite; }
-.animate-drift          { animation: drift 7s ease-in-out infinite; }
-.animate-drift2         { animation: drift2 8s ease-in-out infinite; }
-.animate-fly-across     { animation: fly-across 9s ease-in-out infinite; }
-.animate-glow-pulse     { animation: glow-pulse 2.5s ease-in-out infinite; }
-.animate-dash-draw      { animation: dash-draw 2.5s ease-out forwards; }
-.animate-icon-bob       { animation: icon-bob 3s ease-in-out infinite; }
-.section-hidden         { opacity: 0; transform: translateY(40px); }
-.section-visible        { opacity: 1; transform: translateY(0); transition: opacity 0.7s ease, transform 0.7s ease; }
-.gradient-text          { background: linear-gradient(135deg, #38bdf8, #06b6d4, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-.gradient-text-cyan     { background: linear-gradient(135deg, #22d3ee, #38bdf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-.card-hover             { transition: transform 0.3s ease, box-shadow 0.3s ease; }
-.card-hover:hover       { transform: translateY(-6px) rotate(1deg); box-shadow: 0 24px 48px rgba(0,0,0,0.12); }

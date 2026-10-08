@@ -1,152 +1,70 @@
-"use client";
-
-import { useState, useEffect, useRef } from "react";
-import Image from "next/image";
-import { useInView } from "@/hooks/useInView";
-import { SketchyIcons, FloatingLightbulb } from "@/components/SceneDecorations";
+import { Quote } from "lucide-react";
 
 const testimonials = [
   {
     quote: "It was a terrific way to engage students in the final weeks of school. Students in Grades 7 and 8 started from scratch on both the coding and circuitry fronts, and they've progressed to the point where they're preparing their robots to compete 'in the ring.' It has been a blast watching students learn through this hands-on endeavor.",
     name: "Matt Clements",
-    role: "Principal",
-    school: "McAdam High School",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80",
+    role: "Principal · McAdam High School",
+    tag: "Basic Robotics",
   },
   {
     quote: "I was completely clueless about that stuff. I was soon able to do most of it myself, and I ended up doing about half the programming myself. I thought it was an interesting change from the regular classroom — it was fun!",
     name: "Lauren Messer",
-    role: "Grade 8 Student",
-    school: "McAdam High School",
-    image: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=200&q=80",
+    role: "Grade 8 Student · McAdam High School",
+    tag: "Basic Robotics",
   },
   {
     quote: "Thanks to the clear explanations, hands-on projects, and supportive instructors, I was able to build a Robot car by the end of the course — something I never thought I could do. This course transformed my understanding and skills in robotics. I highly recommend it to anyone interested.",
     name: "Tousif Islam",
-    role: "Computer Science Student",
-    school: "University of New Brunswick",
-    image: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=200&q=80",
+    role: "Computer Science Student · UNB",
+    tag: "Robot Car",
   },
 ];
 
-export default function Testimonials() {
-  const { ref, isInView } = useInView({ threshold: 0.1 });
-  const [active, setActive] = useState(0);
-  const [fading, setFading] = useState(false);
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
-
-  const goTo = (i: number) => {
-    if (fading || i === active) return;
-    setFading(true);
-    setTimeout(() => { setActive(i); setFading(false); }, 300);
-  };
-
-  const next = () => goTo((active + 1) % testimonials.length);
-  const prev = () => goTo((active - 1 + testimonials.length) % testimonials.length);
-
-  useEffect(() => {
-    intervalRef.current = setInterval(() => {
-      setActive((p) => (p + 1) % testimonials.length);
-    }, 6000);
-    return () => { if (intervalRef.current) clearInterval(intervalRef.current); };
-  }, []);
-
-  const t = testimonials[active];
-
+function Star() {
   return (
-    <section className="py-16 sm:py-24 relative overflow-hidden section-parallax">
+    <svg className="h-4 w-4 text-[#fbbf24]" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+    </svg>
+  );
+}
 
-      {/* Sketchy icons + floating lightbulb */}
-      <SketchyIcons variant="robotics" />
-      <FloatingLightbulb className="absolute bottom-10 right-16 z-10 opacity-75" />
-
-      <div ref={ref} className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6">
-        {/* Header */}
-        <div className={`text-center mb-10 sm:mb-16 transition-all duration-700 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-          <p className="section-eyebrow text-cyan-400 mb-4">Student Stories</p>
-          <h2 className="text-3xl sm:text-5xl font-black text-white mb-4 tracking-tight">
-            What people are <span className="text-cyan-400">saying</span>
+export default function Testimonials() {
+  return (
+    <section id="stories" className="scroll-mt-32 bg-white py-28 sm:py-32">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div className="mb-12 max-w-2xl">
+          <p className="anim-up section-label">Student stories</p>
+          <h2 className="t-h2 anim-up d1 mt-5 text-[#0f172a]">
+            In their own
+            <br />
+            <span className="text-[#2563eb]">words.</span>
           </h2>
-          <p className="text-blue-100 text-[15px] max-w-md mx-auto leading-[1.8]">
-            Hear from students, parents, and educators who have experienced RoboFlight firsthand.
+          <p className="anim-up d2 mt-6 max-w-md t-lead text-slate-600">
+            Students, parents, and educators who have experienced RoboFlight firsthand.
           </p>
         </div>
 
-        {/* Main card */}
-        <div className={`transition-all duration-700 delay-100 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-          <div className={`transition-all duration-300 ${fading ? "opacity-0 scale-[0.98]" : "opacity-100 scale-100"}`}>
-            <div className="relative bg-white/10 border border-white/15 rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-12 backdrop-blur-md overflow-hidden">
-              <div className="absolute top-4 right-6 sm:top-6 sm:right-8 text-[80px] sm:text-[120px] leading-none text-white/5 font-serif select-none">&ldquo;</div>
-
-              <div className="grid grid-cols-1 lg:grid-cols-[auto_1fr] gap-6 sm:gap-8 items-start">
-                {/* Avatar */}
-                <div className="flex flex-row lg:flex-col items-center lg:items-start gap-3 lg:gap-3">
-                  <div className="relative w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 rounded-2xl overflow-hidden flex-shrink-0 bg-blue-800 ring-2 ring-white/20">
-                    <Image src={t.image} alt={t.name} fill className="object-cover" sizes="80px" />
-                  </div>
-                  <div>
-                    <p className="text-white font-semibold text-base">{t.name}</p>
-                    <p className="text-cyan-300 text-sm font-medium">{t.role}</p>
-                    <p className="text-blue-200 text-sm mt-0.5">{t.school}</p>
-                    <div className="flex gap-0.5 mt-2">
-                      {[...Array(5)].map((_, i) => (
-                        <svg key={i} className="w-3.5 h-3.5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
-                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                        </svg>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                <blockquote className="text-white/90 text-base sm:text-lg lg:text-xl leading-[1.8] font-normal italic relative z-10">
-                  &ldquo;{t.quote}&rdquo;
-                </blockquote>
+        <div role="list" aria-label="Testimonials" className="scrollbar-none -mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2 sm:mx-0 sm:px-0 lg:grid lg:grid-cols-3 lg:overflow-visible">
+          {testimonials.map((t, i) => (
+            <article key={t.name} role="listitem" className={`anim-up d${i + 1} flex w-[300px] shrink-0 snap-start flex-col rounded-2xl border border-slate-200 bg-white p-7 sm:w-[360px] lg:w-auto`}>
+              <div className="flex items-center justify-between">
+                <div className="flex gap-0.5">{[0, 1, 2, 3, 4].map((s) => <Star key={s} />)}</div>
+                <Quote className="h-7 w-7 text-[#2563eb]/15" aria-hidden="true" />
               </div>
-            </div>
-          </div>
-
-          {/* Controls */}
-          <div className="flex items-center justify-between mt-6 sm:mt-8">
-            <div className="flex items-center gap-2">
-              {testimonials.map((_, i) => (
-                <button key={i} onClick={() => goTo(i)} className={`rounded-full transition-all duration-300 cursor-pointer ${i === active ? "w-8 h-2 bg-cyan-400" : "w-2 h-2 bg-white/25 hover:bg-white/50"}`} />
-              ))}
-            </div>
-            <div className="flex gap-2">
-              <button onClick={prev} className="w-10 h-10 rounded-full border border-white/15 hover:border-white/40 hover:bg-white/10 flex items-center justify-center transition-all cursor-pointer">
-                <svg className="w-4 h-4 text-white/60" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-                </svg>
-              </button>
-              <button onClick={next} className="w-10 h-10 rounded-full bg-cyan-500 hover:bg-cyan-400 flex items-center justify-center transition-all cursor-pointer shadow-lg shadow-cyan-500/20">
-                <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                </svg>
-              </button>
-            </div>
-          </div>
-
-          {/* Thumbnail row — hidden on small mobile, shown sm+ */}
-          <div className="hidden sm:grid grid-cols-3 gap-3 sm:gap-4 mt-6 sm:mt-8">
-            {testimonials.map((item, i) => (
-              <button
-                key={item.name}
-                onClick={() => goTo(i)}
-                className={`text-left p-3 sm:p-4 rounded-xl sm:rounded-2xl border transition-all duration-300 cursor-pointer backdrop-blur-sm ${i === active ? "border-cyan-400/40 bg-cyan-400/10" : "border-white/10 bg-white/5 hover:border-white/20 hover:bg-white/10"}`}
-              >
-                <div className="flex items-center gap-2 mb-1.5 sm:mb-2">
-                  <div className="relative w-6 h-6 sm:w-7 sm:h-7 rounded-lg overflow-hidden bg-blue-800 flex-shrink-0">
-                    <Image src={item.image} alt={item.name} fill className="object-cover" sizes="28px" />
-                  </div>
-                  <div>
-                    <p className={`text-xs font-semibold ${i === active ? "text-white" : "text-white/75"}`}>{item.name}</p>
-                    <p className="text-[11px] text-blue-200">{item.role}</p>
-                  </div>
+              <p className="mt-5 flex-1 text-base leading-relaxed text-slate-700">&ldquo;{t.quote}&rdquo;</p>
+              <div className="mt-7 flex items-center gap-4 border-t border-slate-200 pt-5">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#0a1530] text-xs font-semibold text-white">
+                  {t.name.split(" ").map((n) => n[0]).join("")}
+                </span>
+                <div>
+                  <p className="text-sm font-semibold text-[#0f172a]">{t.name}</p>
+                  <p className="mt-0.5 text-xs text-slate-500">{t.role}</p>
                 </div>
-                <p className="text-white/65 text-xs leading-relaxed line-clamp-2">{item.quote}</p>
-              </button>
-            ))}
-          </div>
+              </div>
+              <p className="mt-4 text-[11px] font-bold uppercase tracking-[0.16em] text-[#2563eb]">{t.tag}</p>
+            </article>
+          ))}
         </div>
       </div>
     </section>

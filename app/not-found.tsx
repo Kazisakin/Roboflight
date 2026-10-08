@@ -1,13 +1,20 @@
-import Link from 'next/link';
+import Link from "next/link";
+
 export default function NotFound() {
   return (
-    <div className='min-h-screen bg-blue-950 flex items-center justify-center px-4'>
-      <div className='text-center'>
-        <p className='text-cyan-400 text-xs font-semibold tracking-widest uppercase mb-4'>404 — Page Not Found</p>
-        <h1 className='text-4xl font-bold text-white mb-4'>Oops, lost in space!</h1>
-        <p className='text-blue-300 text-sm mb-8'>The page you are looking for does not exist.</p>
-        <Link href='/' className='inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-full transition-all text-sm'>
-          Back to Home
+    <div className="flex min-h-screen items-center justify-center bg-[#0a1530] px-4">
+      <div className="text-center">
+        <div className="flex items-center justify-center gap-3">
+          <span className="h-px w-10 bg-[#fbbf24]" />
+          <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#fbbf24]">404 — Page not found</span>
+          <span className="h-px w-10 bg-[#fbbf24]" />
+        </div>
+        <h1 className="t-display mt-6 text-white">
+          Lost in<br /><span className="text-[#38bdf8]">space.</span>
+        </h1>
+        <p className="mt-6 text-base text-slate-300">The page you are looking for does not exist.</p>
+        <Link href="/" className="mt-10 inline-flex items-center gap-2 rounded-full bg-[#2563eb] px-7 py-3.5 text-sm font-semibold text-white transition hover:bg-[#1d4ed8]">
+          Back to home
         </Link>
       </div>
     </div>

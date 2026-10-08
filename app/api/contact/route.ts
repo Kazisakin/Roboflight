@@ -217,7 +217,7 @@ Sent from roboflight.ca
               <p>— The RoboFlight Team 🤖✈️🚀</p>
             </div>
             <div class="footer">
-              <p>RoboFlight · New Brunswick, Canada · info@roboflight.ca</p>
+              <p>RoboFlight · 50 Crowther Ln, Suite 140, Fredericton, NB · (506) 897-1311 · info@roboflight.ca</p>
             </div>
           </div>
         </body>

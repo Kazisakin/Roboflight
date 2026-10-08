@@ -1,67 +1,72 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Plus_Jakarta_Sans } from "next/font/google";
+import { Manrope } from "next/font/google";
 import "./globals.css";
 import CookieConsent from "@/components/CookieConsent";
-import CustomCursor from "@/components/CustomCursor";
+import Analytics from "@/components/Analytics";
 
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
-});
-
-const jakarta = Plus_Jakarta_Sans({
+const manrope = Manrope({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800"],
-  variable: "--font-jakarta",
+  variable: "--font-manrope",
   display: "swap",
 });
 
 export const viewport: Viewport = {
-  themeColor: "#1e3a8a",
+  themeColor: "#0a1530",
 };
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://roboflight.ca"),
-  title: "RoboFlight | Robotics, Coding & Circuitry for Kids",
+  title: {
+    default: "Robotics & Coding Classes for Kids, Fredericton | RoboFlight",
+    template: "%s | RoboFlight",
+  },
   description:
-    "RoboFlight teaches children how to build and program robots, drones, and RC planes. Fostering creativity, problem-solving, and a passion for STEM in New Brunswick, Canada.",
-  keywords: ["robotics", "coding", "STEM", "kids", "drones", "RC planes", "New Brunswick", "Canada", "education"],
-  authors: [{ name: "Abdur Rahman Chowdhury" }],
+    "Hands-on robotics, coding, drone and RC plane classes for kids in Fredericton, NB. Small groups, kits included. Book a free trial class.",
+  applicationName: "RoboFlight",
+  keywords: ["robotics classes Fredericton", "coding for kids Fredericton", "STEM classes Fredericton", "drone class for kids", "RC plane class", "Arduino for kids", "after school programs Fredericton", "New Brunswick"],
+  authors: [{ name: "RoboFlight" }],
+  formatDetection: { telephone: true, address: true, email: true },
   icons: {
     icon: [
       { url: "/favicon.ico" },
       { url: "/favicon-96x96.png", sizes: "96x96", type: "image/png" },
     ],
     apple: [{ url: "/apple-touch-icon.png" }],
-    other: [{ rel: "manifest", url: "/site.webmanifest" }],
   },
+  manifest: "/site.webmanifest",
   openGraph: {
-    title: "RoboFlight | Robotics, Coding & Circuitry for Kids",
-    description: "RoboFlight teaches children how to build and program robots, drones, and RC planes in New Brunswick, Canada.",
+    title: "Robotics & Coding Classes for Kids, Fredericton | RoboFlight",
+    description: "Hands-on robotics, coding, drone and RC plane classes for kids in Fredericton, NB. Book a free trial class.",
     type: "website",
-    url: "https://roboflight.ca",
+    url: "/",
     siteName: "RoboFlight",
-    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "RoboFlight — Robotics, Coding & Circuitry for Kids" }],
+    locale: "en_CA",
+    images: [{ url: "/og/home.jpg", width: 1200, height: 630, alt: "RoboFlight — robotics & coding classes for kids in Fredericton" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "RoboFlight | Robotics, Coding & Circuitry for Kids",
-    description: "RoboFlight teaches children how to build and program robots, drones, and RC planes in New Brunswick, Canada.",
-    images: ["/og-image.png"],
+    title: "Robotics & Coding Classes for Kids, Fredericton | RoboFlight",
+    description: "Hands-on robotics, coding, drone and RC plane classes for kids in Fredericton, NB.",
+    images: ["/og/home.jpg"],
   },
+  ...(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
+    ? { verification: { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION } }
+    : {}),
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${jakarta.variable}`}>
-      <body className={`${inter.className} antialiased`}>
-        {/* Fixed deep-space layer — dark sections "pass through" this as you scroll */}
-        <div className="fixed inset-0 -z-10 pointer-events-none" aria-hidden="true"
-          style={{ background: "linear-gradient(145deg, #060d1a 0%, #091525 40%, #060e1e 100%)" }} />
+    <html lang="en-CA" className={manrope.variable}>
+      <head>
+        <link rel="preconnect" href="https://images.pexels.com" />
+        <link rel="preconnect" href="https://videos.pexels.com" />
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+      </head>
+      <body className={`${manrope.className} antialiased`}>
         {children}
         <CookieConsent />
-        <CustomCursor />
+        <Analytics />
       </body>
     </html>
   );
